@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall;
 
+import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.utils.VNCUtils;
 
 /**
@@ -40,6 +41,7 @@ public class UltraVNCViewerStarter {
                 VNCUtils.startUltraVNCViewer(args[0], args[1], args[2], args[3]);
                 break;
             default:
+                System.out.println(ConfigConstants.START_ULTRAVNC_VIEWER_NO_PARAMETER_INFO);
                 break;
         }
 
