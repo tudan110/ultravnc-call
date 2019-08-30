@@ -17,8 +17,15 @@ public class UltraVNCIniModifier {
     public static void main(String[] args) {
 
         // 修改 ultravnc.ini 文件
-        // "C:/Users/tudan/Desktop/ultravnc.ini" 90699
-        VNCUtils.modifyUltraVNCIni(args[0], args[1]);
+        if (args.length == 1) {
+
+            // 90699
+            VNCUtils.modifyUltraVNCIni(args[0]);
+        } else if (args.length == 2) {
+
+            // 90699 "C:/Users/tudan/Desktop/ultravnc.ini"
+            VNCUtils.modifyUltraVNCIni(args[0], args[1]);
+        }
 
 //        VNCUtils.modifyUltraVNCIni("C:\\Users\\tudan\\Desktop\\ultravnc.ini", "90699");
     }

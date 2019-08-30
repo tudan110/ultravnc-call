@@ -2,6 +2,7 @@ package indi.tudan.uvnccall.utils;
 
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.common.SystemConfig;
+import indi.tudan.uvnccall.exception.NoRightAccessException;
 
 import java.io.*;
 import java.text.MessageFormat;
@@ -101,6 +102,18 @@ public class VNCUtils {
     private static String getRepeaterVNCViewerListenPort() {
         String repeaterVNCViewerListenPort = SystemConfig.getProperty("ultravnc.repeater.uvncviewer.listen.port");
         return StringUtils.isEmpty(repeaterVNCViewerListenPort) ? "5901" : repeaterVNCViewerListenPort;
+    }
+
+    /**
+     * 获取 UltraVNC 配置文件 ultravnc.ini 的路径
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 14:52:24
+     * @since 1.0
+     */
+    private static String getUltraVNCIniPath() {
+        return SystemConfig.getProperty("ultravnc.uvncini.path");
     }
 
     /**
@@ -346,20 +359,36 @@ public class VNCUtils {
             // 将内容写入文件中
             bw.write(content);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (getUltraVNCIniPath().contains("C:/Program Files")) {
+                throw new NoRightAccessException("没有权限访问配置文件，请以管理员权限运行程序。");
+            } else {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
      * 修改 ultravnc.ini 文件内容
      *
-     * @param filePath 文件路径
+     * @param workNum 工号
+     * @author wangtan
+     * @date 2019-08-30 14:48:30
+     * @since 1.0
+     */
+    public static void modifyUltraVNCIni(String workNum) {
+        modifyUltraVNCIni(workNum, getUltraVNCIniPath());
+    }
+
+    /**
+     * 修改 ultravnc.ini 文件内容
+     *
      * @param workNum  工号
+     * @param filePath 文件路径
      * @author wangtan
      * @date 2019-08-29 14:48:08
      * @since 1.0
      */
-    public static void modifyUltraVNCIni(String filePath, String workNum) {
+    public static void modifyUltraVNCIni(String workNum, String filePath) {
 
         // 读取并修改文件
         VNCUtils.writeUltraVNCIni(filePath, VNCUtils.readUltraVNCIni(filePath, workNum));
