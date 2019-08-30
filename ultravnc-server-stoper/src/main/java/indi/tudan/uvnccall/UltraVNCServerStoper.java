@@ -17,7 +17,11 @@ public class UltraVNCServerStoper {
     public static void main(String[] args) {
 
         // 停止 UltraVNC Server
-        VNCUtils.stopUltraVNCServer("winvnc.exe");
+        if (args.length == 1) {
+            VNCUtils.stopUltraVNCServer(args[0]);
+        } else {
+            VNCUtils.stopUltraVNCServerByDefaultImageName();
+        }
     }
 
 }

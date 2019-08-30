@@ -16,6 +16,56 @@ import java.text.MessageFormat;
 public class VNCUtils {
 
     /**
+     * 获取 UltraVNC Server 程序映像名称
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 14:18:01
+     * @since 1.0
+     */
+    private static String getUltraVNCServerImageName() {
+        String imageName = SystemConfig.getProperty("ultravnc.uvncserver.image.name");
+        return StringUtils.isEmpty(imageName) ? "winvnc.exe" : imageName;
+    }
+
+    /**
+     * 获取 UltraVNC Viewer 程序映像名称
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 14:18:35
+     * @since 1.0
+     */
+    private static String getUltraVNCViewerImageName() {
+        String imageName = SystemConfig.getProperty("ultravnc.uvncviewer.image.name");
+        return StringUtils.isEmpty(imageName) ? "vncviewer.exe" : imageName;
+    }
+
+    /**
+     * 获取 UltraVNC Server 程序路径
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 10:52:56
+     * @since 1.0
+     */
+    private static String getUltraVNCServerPath() {
+        return SystemConfig.getProperty("ultravnc.uvncserver.path");
+    }
+
+    /**
+     * 获取 UltraVNC Viewer 程序路径
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 10:52:56
+     * @since 1.0
+     */
+    private static String getUltraVNCViewerPath() {
+        return SystemConfig.getProperty("ultravnc.uvncviewer.path");
+    }
+
+    /**
      * 获取中继器服务器 IP
      *
      * @return String
@@ -36,7 +86,8 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterVNCServerListenPort() {
-        return SystemConfig.getProperty("ultravnc.repeater.uvncserver.listen.port");
+        String repeaterVNCServerListenPort = SystemConfig.getProperty("ultravnc.repeater.uvncserver.listen.port");
+        return StringUtils.isEmpty(repeaterVNCServerListenPort) ? "5500" : repeaterVNCServerListenPort;
     }
 
     /**
@@ -48,7 +99,8 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterVNCViewerListenPort() {
-        return SystemConfig.getProperty("ultravnc.repeater.uvncviewer.listen.port");
+        String repeaterVNCViewerListenPort = SystemConfig.getProperty("ultravnc.repeater.uvncviewer.listen.port");
+        return StringUtils.isEmpty(repeaterVNCViewerListenPort) ? "5901" : repeaterVNCViewerListenPort;
     }
 
     /**
@@ -68,28 +120,54 @@ public class VNCUtils {
     /**
      * 启动 UltraVNC Server
      *
-     * @param ultraVNCServerPath 服务端程序路径
-     * @param puppetID           被控制端 ID
+     * @param puppetID 被控制端 ID
      * @author wangtan
-     * @date 2019-08-30 11:01:31
+     * @date 2019-08-30 14:03:07
      * @since 1.0
      */
-    public static void startUltraVNCServer(String ultraVNCServerPath, String puppetID) {
-        startUltraVNCServer(ultraVNCServerPath, puppetID, getRepeaterServerIP(), getRepeaterVNCServerListenPort());
+    public static void startUltraVNCServer(String puppetID) {
+        startUltraVNCServer(puppetID, getUltraVNCServerPath(), getRepeaterServerIP(), getRepeaterVNCServerListenPort());
     }
 
     /**
      * 启动 UltraVNC Server
      *
-     * @param ultraVNCServerPath          服务端程序路径
+     * @param puppetID           被控制端 ID
+     * @param ultraVNCServerPath 服务端程序路径
+     * @author wangtan
+     * @date 2019-08-30 11:01:31
+     * @since 1.0
+     */
+    public static void startUltraVNCServer(String puppetID, String ultraVNCServerPath) {
+        startUltraVNCServer(puppetID, ultraVNCServerPath, getRepeaterServerIP(), getRepeaterVNCServerListenPort());
+    }
+
+    /**
+     * 启动 UltraVNC Server
+     *
+     * @param puppetID           被控制端 ID
+     * @param ultraVNCServerPath 服务端程序路径
+     * @param repeaterServerIP   中继器服务器 IP
+     * @author wangtan
+     * @date 2019-08-30 14:04:41
+     * @since 1.0
+     */
+    public static void startUltraVNCServer(String puppetID, String ultraVNCServerPath, String repeaterServerIP) {
+        startUltraVNCServer(puppetID, ultraVNCServerPath, repeaterServerIP, getRepeaterVNCServerListenPort());
+    }
+
+    /**
+     * 启动 UltraVNC Server
+     *
      * @param puppetID                    被控制端 ID
+     * @param ultraVNCServerPath          服务端程序路径
      * @param repeaterServerIP            中继器服务器 IP
      * @param repeaterVNCServerListenPort 中继器 UltraVNC Server 监听端口
      * @author wangtan
      * @date 2019-08-29 14:12:52
      * @since 1.0
      */
-    public static void startUltraVNCServer(String ultraVNCServerPath, String puppetID,
+    public static void startUltraVNCServer(String puppetID, String ultraVNCServerPath,
                                            String repeaterServerIP, String repeaterVNCServerListenPort) {
         try {
             start(MessageFormat.format("{0} -autoreconnect ID:{1} -connect {2}:{3} -run",
@@ -101,6 +179,17 @@ public class VNCUtils {
             System.out.println(ConfigConstants.START_ULTRAVNC_SERVER_ERROR_INFO);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 通过默认映像名（进程名称），停止 UltraVNC Server
+     *
+     * @author wangtan
+     * @date 2019-08-30 14:13:55
+     * @since 1.0
+     */
+    public static void stopUltraVNCServerByDefaultImageName() {
+        stopUltraVNCServer(getUltraVNCServerImageName());
     }
 
     /**
@@ -140,28 +229,54 @@ public class VNCUtils {
     /**
      * 启动 UltraVNC Viewer
      *
-     * @param ultraVNCViewerPath 查看器程序路径
-     * @param puppetID           被控制端 ID
+     * @param puppetID 被控制端 ID
      * @author wangtan
-     * @date 2019-08-30 11:03:17
+     * @date 2019-08-30 13:45:17
      * @since 1.0
      */
-    public static void startUltraVNCViewer(String ultraVNCViewerPath, String puppetID) {
-        startUltraVNCViewer(ultraVNCViewerPath, puppetID, getRepeaterServerIP(), getRepeaterVNCViewerListenPort());
+    public static void startUltraVNCViewer(String puppetID) {
+        startUltraVNCViewer(puppetID, getUltraVNCViewerPath(), getRepeaterServerIP(), getRepeaterVNCViewerListenPort());
     }
 
     /**
      * 启动 UltraVNC Viewer
      *
-     * @param ultraVNCViewerPath          查看器程序路径
+     * @param puppetID           被控制端 ID
+     * @param ultraVNCViewerPath 查看器程序路径
+     * @author wangtan
+     * @date 2019-08-30 11:03:17
+     * @since 1.0
+     */
+    public static void startUltraVNCViewer(String puppetID, String ultraVNCViewerPath) {
+        startUltraVNCViewer(puppetID, ultraVNCViewerPath, getRepeaterServerIP(), getRepeaterVNCViewerListenPort());
+    }
+
+    /**
+     * 启动 UltraVNC Viewer
+     *
+     * @param puppetID           被控制端 ID
+     * @param ultraVNCViewerPath 查看器程序路径
+     * @param repeaterServerIP   中继器服务器 IP
+     * @author wangtan
+     * @date 2019-08-30 13:53:17
+     * @since 1.0
+     */
+    public static void startUltraVNCViewer(String puppetID, String ultraVNCViewerPath, String repeaterServerIP) {
+        startUltraVNCViewer(puppetID, ultraVNCViewerPath, repeaterServerIP, getRepeaterVNCViewerListenPort());
+    }
+
+    /**
+     * 启动 UltraVNC Viewer
+     *
      * @param puppetID                    被控制端 ID
+     * @param ultraVNCViewerPath          查看器程序路径
      * @param repeaterServerIP            中继器服务器 IP
      * @param repeaterVNCViewerListenPort 中继器 UltraVNC Viewer 监听端口
      * @author wangtan
      * @date 2019-08-29 14:12:52
      * @since 1.0
      */
-    public static void startUltraVNCViewer(String ultraVNCViewerPath, String puppetID,
+    public static void startUltraVNCViewer(String puppetID, String ultraVNCViewerPath,
                                            String repeaterServerIP, String repeaterVNCViewerListenPort) {
         try {
             start(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
@@ -185,7 +300,7 @@ public class VNCUtils {
      * @date 2019-08-29 11:16:59
      * @since 1.0
      */
-    public static String readUltraVNCIni(String iniFilePath, String workNum) {
+    private static String readUltraVNCIni(String iniFilePath, String workNum) {
         String line;
         StringBuilder buf = new StringBuilder();
 
@@ -223,7 +338,7 @@ public class VNCUtils {
      * @date 2019-08-29 11:22:31
      * @since 1.0
      */
-    public static void writeUltraVNCIni(String filePath, String content) {
+    private static void writeUltraVNCIni(String filePath, String content) {
 
         // 根据文件路径创建缓冲输出流
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
