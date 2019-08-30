@@ -1,5 +1,5 @@
 # ultravnc-call
-UltraVNC 调用程序
+UltraVNC 调用程序，仅适用于 windows（因为 UltraVNC 只有 windows 版本）
 
 1. ### UltraVNCServerStarter（UltraVNCServer 启动器）
 
@@ -9,7 +9,7 @@ UltraVNC 调用程序
 
    2. 中继器 IP
 
-   3. 中继器 Server 监听端口
+   3. 中继器 UltraVNC Server 监听端口
 
    4. 工号
 
@@ -31,7 +31,7 @@ UltraVNC 调用程序
 
    2. 中继器 IP
 
-   3. 中继器 Viewer 监听端口
+   3. 中继器 UltraVNC Viewer 监听端口
 
    4. 工号
 

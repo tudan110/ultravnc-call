@@ -17,15 +17,18 @@ public class UltraVNCViewerStarter {
     public static void main(String[] args) {
 
         // 启动 UltraVNC Viewer
-        // "C:\\Program Files\\uvnc bvba\\UltraVNC\\vncviewer.exe" 10.20.16.48 5901 90699
-        // "C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe" 10.20.16.48 5901 90699
-        VNCUtils.startUltraVNCViewer(args[0], args[1], args[2], args[3]);
+        // "C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe" 90699
+        VNCUtils.startUltraVNCViewer(args[0], args[1]);
+
+        // "C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe" 90699 10.20.16.48 5901
+//        VNCUtils.startUltraVNCViewer(args[0], args[1], args[2], args[3]);
 
         /*VNCUtils.startUltraVNCViewer(
-                "C:\\Program Files\\uvnc bvba\\UltraVNC\\vncviewer.exe",
+                "C:\\Program Files\\uvnc bvba\\UltraVNC\\vncviewer.exe",,
+                "90699"
                 "10.20.16.48",
-                "5901",
-                "90699");*/
+                "5901");*/
 
     }
+
 }
