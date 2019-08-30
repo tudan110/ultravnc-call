@@ -5,7 +5,7 @@ UltraVNC 调用程序，仅适用于 windows（因为 UltraVNC 只有 windows �
 
    参数讲解：
 
-   1. 工号
+   1. 编号
 
    2. winvnc.exe 路径（可选参数）
 
@@ -33,7 +33,7 @@ UltraVNC 调用程序，仅适用于 windows（因为 UltraVNC 只有 windows �
 
    参数讲解：
 
-   1. 工号
+   1. 编号
 
    2. vncviewer.exe 路径（可选参数）
 
@@ -50,10 +50,11 @@ UltraVNC 调用程序，仅适用于 windows（因为 UltraVNC 只有 windows �
 
    参数讲解：
 
-   1. ultravnc.ini 配置文件路径
+   1. 编号
 
-   2. 工号
+   2. ultravnc.ini 配置文件路径（可选参数）
 
    ```
+   # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
    java -jar ultravnc-ini-modifier-1.0.jar "C:/Users/tudan/Desktop/ultravnc.ini" 90699
    ```
