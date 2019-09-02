@@ -20,6 +20,46 @@ public class ConfigConstants {
     public static final String SYSTEM_DEFAULT_CHARSET = SystemConfig.getProperty("system.default.charset");
 
     /**
+     * UltraVNC Server 程序映像名称
+     */
+    public static final String ULTRAVNC_SERVER_IMAGE_NAME = SystemConfig.getProperty("ultravnc.uvncserver.image.name");
+
+    /**
+     * UltraVNC Viewer 程序映像名称
+     */
+    public static final String ULTRAVNC_VIEWER_IMAGE_NAME = SystemConfig.getProperty("ultravnc.uvncviewer.image.name");
+
+    /**
+     * UltraVNC Server 程序路径
+     */
+    public static final String ULTRAVNC_SERVER_PATH = SystemConfig.getProperty("ultravnc.uvncserver.path");
+
+    /**
+     * UltraVNC Viewer 程序路径
+     */
+    public static final String ULTRAVNC_VIEWER_PATH = SystemConfig.getProperty("ultravnc.uvncviewer.path");
+
+    /**
+     * UltraVNC 配置文件 ultravnc.ini 的路径
+     */
+    public static final String ULTRAVNC_INI_PATH = SystemConfig.getProperty("ultravnc.uvncini.path");
+
+    /**
+     * 中继器服务器 IP
+     */
+    public static final String ULTRAVNC_REPEATER_SERVER_IP = SystemConfig.getProperty("ultravnc.repeater.server.ip");
+
+    /**
+     * 中继器 UltraVNC Server 监听端口
+     */
+    public static final String ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT = SystemConfig.getProperty("ultravnc.repeater.uvncserver.listen.port");
+
+    /**
+     * 中继器 UltraVNC Viewer 监听端口
+     */
+    public static final String ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT = SystemConfig.getProperty("ultravnc.repeater.uvncviewer.listen.port");
+
+    /**
      * UltraVNC 修改配置文件 ultravnc.ini未填写参数提示信息
      */
     public static final String MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO = SystemConfig.getProperty("ultravnc.modify.uvncini.no.parameter.info");

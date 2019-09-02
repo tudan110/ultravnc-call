@@ -27,7 +27,7 @@ public class UltraVNCIniModifier {
             // 90699 "C:/Users/tudan/Desktop/ultravnc.ini"
             VNCUtils.modifyUltraVNCIni(args[0], args[1]);
         } else {
-            System.out.println(ConfigConstants.START_ULTRAVNC_VIEWER_NO_PARAMETER_INFO);
+            System.out.println(ConfigConstants.MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO);
         }
 
 //        VNCUtils.modifyUltraVNCIni("C:\\Users\\tudan\\Desktop\\ultravnc.ini", "90699");

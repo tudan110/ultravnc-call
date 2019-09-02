@@ -1,7 +1,6 @@
 package indi.tudan.uvnccall.utils;
 
 import indi.tudan.uvnccall.common.ConfigConstants;
-import indi.tudan.uvnccall.common.SystemConfig;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
 
 import java.io.BufferedReader;
@@ -35,8 +34,8 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCServerImageName() {
-        String imageName = SystemConfig.getProperty("ultravnc.uvncserver.image.name");
-        return StringUtils.isEmpty(imageName) ? "winvnc.exe" : imageName;
+        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME)
+                ? "winvnc.exe" : ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME;
     }
 
     /**
@@ -48,8 +47,8 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCViewerImageName() {
-        String imageName = SystemConfig.getProperty("ultravnc.uvncviewer.image.name");
-        return StringUtils.isEmpty(imageName) ? "vncviewer.exe" : imageName;
+        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME)
+                ? "vncviewer.exe" : ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME;
     }
 
     /**
@@ -61,7 +60,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCServerPath() {
-        return SystemConfig.getProperty("ultravnc.uvncserver.path");
+        return ConfigConstants.ULTRAVNC_SERVER_PATH;
     }
 
     /**
@@ -73,45 +72,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCViewerPath() {
-        return SystemConfig.getProperty("ultravnc.uvncviewer.path");
-    }
-
-    /**
-     * 获取中继器服务器 IP
-     *
-     * @return String
-     * @author wangtan
-     * @date 2019-08-30 10:52:56
-     * @since 1.0
-     */
-    private static String getRepeaterServerIP() {
-        return SystemConfig.getProperty("ultravnc.repeater.server.ip");
-    }
-
-    /**
-     * 获取中继器 UltraVNC Server 监听端口
-     *
-     * @return String
-     * @author wangtan
-     * @date 2019-08-30 10:56:51
-     * @since 1.0
-     */
-    private static String getRepeaterVNCServerListenPort() {
-        String repeaterVNCServerListenPort = SystemConfig.getProperty("ultravnc.repeater.uvncserver.listen.port");
-        return StringUtils.isEmpty(repeaterVNCServerListenPort) ? "5500" : repeaterVNCServerListenPort;
-    }
-
-    /**
-     * 获取中继器 UltraVNC Viewer 监听端口
-     *
-     * @return String
-     * @author wangtan
-     * @date 2019-08-30 10:58:08
-     * @since 1.0
-     */
-    private static String getRepeaterVNCViewerListenPort() {
-        String repeaterVNCViewerListenPort = SystemConfig.getProperty("ultravnc.repeater.uvncviewer.listen.port");
-        return StringUtils.isEmpty(repeaterVNCViewerListenPort) ? "5901" : repeaterVNCViewerListenPort;
+        return ConfigConstants.ULTRAVNC_VIEWER_PATH;
     }
 
     /**
@@ -123,7 +84,45 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCIniPath() {
-        return SystemConfig.getProperty("ultravnc.uvncini.path");
+        return ConfigConstants.ULTRAVNC_INI_PATH;
+    }
+
+    /**
+     * 获取中继器服务器 IP
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 10:52:56
+     * @since 1.0
+     */
+    private static String getRepeaterServerIP() {
+        return ConfigConstants.ULTRAVNC_REPEATER_SERVER_IP;
+    }
+
+    /**
+     * 获取中继器 UltraVNC Server 监听端口
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 10:56:51
+     * @since 1.0
+     */
+    private static String getRepeaterVNCServerListenPort() {
+        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT)
+                ? "5500" : ConfigConstants.ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT;
+    }
+
+    /**
+     * 获取中继器 UltraVNC Viewer 监听端口
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-08-30 10:58:08
+     * @since 1.0
+     */
+    private static String getRepeaterVNCViewerListenPort() {
+        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT)
+                ? "5901" : ConfigConstants.ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT;
     }
 
     /**
