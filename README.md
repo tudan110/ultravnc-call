@@ -9,7 +9,7 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
 
    参数讲解：
 
-   1. 编号，必须是数字
+   1. 编号，唯一，必须是数字，且至少三位（即最小是100）
 
    2. winvnc.exe 路径（可选参数）
 
@@ -37,7 +37,7 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
 
    参数讲解：
 
-   1. 编号，必须是数字
+   1. 编号，唯一，必须是数字，且至少三位（即最小是100）
 
    2. vncviewer.exe 路径（可选参数）
 
@@ -56,7 +56,7 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
 
    参数讲解：
 
-   1. 编号，必须是数字
+   1. 编号，唯一，必须是数字，且至少三位（即最小是100）
 
    2. ultravnc.ini 配置文件路径（可选参数）
    
