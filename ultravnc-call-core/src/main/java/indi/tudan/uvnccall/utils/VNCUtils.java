@@ -4,7 +4,11 @@ import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.common.SystemConfig;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 /**
@@ -15,6 +19,12 @@ import java.text.MessageFormat;
  * @since 1.0
  */
 public class VNCUtils {
+
+    /**
+     * Don't let anyone else instantiate this class
+     */
+    private VNCUtils() {
+    }
 
     /**
      * 获取 UltraVNC Server 程序映像名称
@@ -117,20 +127,6 @@ public class VNCUtils {
     }
 
     /**
-     * 启动本地程序
-     *
-     * @param command 启动命令字符串
-     * @author wangtan
-     * @date 2019-08-29 14:01:07
-     * @since 1.0
-     */
-    public static void start(String command) throws IOException {
-
-        // 启动本地程序
-        Runtime.getRuntime().exec(command);
-    }
-
-    /**
      * 启动 UltraVNC Server
      *
      * @param puppetIdNumber 被控制端 ID
@@ -182,16 +178,19 @@ public class VNCUtils {
      */
     public static void startUltraVNCServer(String puppetIdNumber, String ultraVNCServerPath,
                                            String repeaterServerIP, String repeaterVNCServerListenPort) {
-        try {
-            start(MessageFormat.format("{0} -autoreconnect ID:{1} -connect {2}:{3} -run",
-                    ultraVNCServerPath,
-                    puppetIdNumber,
-                    repeaterServerIP,
-                    repeaterVNCServerListenPort));
-        } catch (IOException e) {
-            System.out.println(ConfigConstants.START_ULTRAVNC_SERVER_ERROR_INFO);
-            e.printStackTrace();
+
+        // 判断 UltraVNC Server 是否已经运行，若已经在运行了，则需要停止
+        if (RuntimeUtils.isTaskAlive(getUltraVNCServerImageName())) {
+            stopUltraVNCServer(Paths.get(ultraVNCServerPath).getFileName().toString());
         }
+
+        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -autoreconnect ID:{1} -connect {2}:{3} -run",
+                ultraVNCServerPath,
+                puppetIdNumber,
+                repeaterServerIP,
+                repeaterVNCServerListenPort),
+                ConfigConstants.START_ULTRAVNC_SERVER_ERROR_INFO
+        );
     }
 
     /**
@@ -214,29 +213,8 @@ public class VNCUtils {
      * @since 1.0
      */
     public static void stopUltraVNCServer(String imageName) {
-        try {
-            String cmd = MessageFormat.format("cmd /c " + "taskkill /f /im \"{0}\"", imageName);
-
-            // 获取运行时系统
-            Runtime rt = Runtime.getRuntime();
-
-            // 执行命令
-            Process proc = rt.exec(cmd);
-
-            // 获取输入流
-            InputStream stderr = proc.getInputStream();
-            InputStreamReader isr = new InputStreamReader(stderr, "GBK");
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-
-            // 打印出命令执行的结果
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (Exception e) {
-            System.out.println(ConfigConstants.STOP_ULTRAVNC_SERVER_ERROR_INFO);
-            e.printStackTrace();
-        }
+        RuntimeUtils.execAndPrintResults(MessageFormat.format("cmd /c taskkill /f /im \"{0}\"", imageName),
+                ConfigConstants.STOP_ULTRAVNC_SERVER_ERROR_INFO);
     }
 
     /**
@@ -291,16 +269,13 @@ public class VNCUtils {
      */
     public static void startUltraVNCViewer(String puppetIdNumber, String ultraVNCViewerPath,
                                            String repeaterServerIP, String repeaterVNCViewerListenPort) {
-        try {
-            start(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
-                    ultraVNCViewerPath,
-                    repeaterServerIP,
-                    repeaterVNCViewerListenPort,
-                    puppetIdNumber));
-        } catch (IOException e) {
-            System.out.println(ConfigConstants.START_ULTRAVNC_VIEWER_ERROR_INFO);
-            e.printStackTrace();
-        }
+        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
+                ultraVNCViewerPath,
+                repeaterServerIP,
+                repeaterVNCViewerListenPort,
+                puppetIdNumber),
+                ConfigConstants.START_ULTRAVNC_VIEWER_ERROR_INFO
+        );
     }
 
     /**

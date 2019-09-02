@@ -9,7 +9,10 @@ package indi.tudan.uvnccall.utils;
  */
 public class StringUtils {
 
-    public StringUtils() {
+    /**
+     * Don't let anyone else instantiate this class
+     */
+    private StringUtils() {
     }
 
     /**

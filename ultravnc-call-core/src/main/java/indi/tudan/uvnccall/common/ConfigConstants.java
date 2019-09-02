@@ -15,6 +15,11 @@ public class ConfigConstants {
     public static final String CONFIG_PATH = "/config.properties";
 
     /**
+     * windows 系统默认编码
+     */
+    public static final String SYSTEM_DEFAULT_CHARSET = SystemConfig.getProperty("system.default.charset");
+
+    /**
      * UltraVNC 修改配置文件 ultravnc.ini未填写参数提示信息
      */
     public static final String MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO = SystemConfig.getProperty("ultravnc.modify.uvncini.no.parameter.info");
