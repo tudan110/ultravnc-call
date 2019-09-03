@@ -3,10 +3,8 @@ package indi.tudan.uvnccall.utils;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 
@@ -292,7 +290,8 @@ public class VNCUtils {
         StringBuilder buf = new StringBuilder();
 
         // 根据文件路径创建缓冲输入流
-        try (BufferedReader br = new BufferedReader(new FileReader(iniFilePath))) {
+        //try (BufferedReader br = new BufferedReader(new FileReader(iniFilePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(iniFilePath), StandardCharsets.UTF_8))) {
 
             // 循环读取文件的每一行, 对需要修改的行进行修改, 放入缓冲对象中
             while ((line = br.readLine()) != null) {
@@ -328,7 +327,8 @@ public class VNCUtils {
     private static void writeUltraVNCIni(String filePath, String content) {
 
         // 根据文件路径创建缓冲输出流
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+        //try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
 
             // 将内容写入文件中
             bw.write(content);
