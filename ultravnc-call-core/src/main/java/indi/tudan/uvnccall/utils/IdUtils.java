@@ -16,6 +16,9 @@ public class IdUtils {
 
     private static final Set<String> STRING_SET = new HashSet<>();
 
+    /**
+     * Don't let anyone else instantiate this class
+     */
     private IdUtils() {
     }
 
@@ -57,14 +60,14 @@ public class IdUtils {
      */
     public static String getVNCSessionId() {
 
-        //
-        String s = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
-        while (STRING_SET.contains(s)) {
-            s = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
+        // 生成 100 ~ 0x7fffffff 的随机整数
+        String result = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
+        while (STRING_SET.contains(result)) {
+            result = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
         }
-        STRING_SET.add(s);
+        STRING_SET.add(result);
 
-        return s;
+        return result;
     }
 
     public static void main(String[] args) {
