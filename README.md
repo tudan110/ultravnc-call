@@ -19,7 +19,7 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
 
    ```
    # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
-   java -jar ultravnc-server-starter-1.0.jar "C:/Program Files/uvnc bvba/UltraVNC/winvnc.exe" 90699 [10.20.16.48] [5500]
+   java -jar ultravnc-server-starter-1.0.jar 90699 ["C:/Program Files/uvnc bvba/UltraVNC/winvnc.exe"] [10.20.16.48] [5500]
    ```
 
 2. ### UltraVNCServerStoper（UltraVNCServer 停止器）
@@ -47,7 +47,7 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
 
    ```
    # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
-   java -jar ultravnc-viewer-starter-1.0.jar "C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe" 90699 [10.20.16.48] [5901]
+   java -jar ultravnc-viewer-starter-1.0.jar 90699 ["C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe"] [10.20.16.48] [5901]
    ```
 
 4. ### UltraVNCIniModifier（修改 UltraVNC 配置文件 ultravnc.ini）
@@ -62,5 +62,5 @@ https://blog.csdn.net/WTUDAN/article/details/100214799
    
    ```
    # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
-   java -jar ultravnc-ini-modifier-1.0.jar "C:/Users/tudan/Desktop/ultravnc.ini" 90699
+   java -jar ultravnc-ini-modifier-1.0.jar 90699 ["C:/Users/tudan/Desktop/ultravnc.ini"]
    ```
