@@ -2,7 +2,7 @@ package indi.tudan.uvnccall.utils;
 
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
-import indi.tudan.uvnccall.exception.UltraVNCNotFoundException;
+import indi.tudan.uvnccall.exception.UltraVNCException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -178,7 +178,7 @@ public class VNCUtils {
 
         // 若程序文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(ultraVNCServerPath)) {
-            throw new UltraVNCNotFoundException("UltraVNC Server(winvnc.exe) is not exists.");
+            throw new UltraVNCException("UltraVNC Server(winvnc.exe) is not exists.");
         }
 
         // 判断 UltraVNC Server 是否已经运行，若已经在运行了，则需要停止
@@ -274,7 +274,7 @@ public class VNCUtils {
 
         // 若程序文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(ultraVNCViewerPath)) {
-            throw new UltraVNCNotFoundException("UltraVNC Viewer(vncviewer.exe) is not exists.");
+            throw new UltraVNCException("UltraVNC Viewer(vncviewer.exe) is not exists.");
         }
 
         RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
@@ -300,7 +300,7 @@ public class VNCUtils {
 
         // 若配置文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(iniFilePath)) {
-            throw new UltraVNCNotFoundException("UltraVNC settings(ultravnc.ini) is not exists.");
+            throw new UltraVNCException("UltraVNC settings(ultravnc.ini) is not exists.");
         }
 
         String line;
@@ -345,7 +345,7 @@ public class VNCUtils {
 
         // 若配置文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(iniFilePath)) {
-            throw new UltraVNCNotFoundException("UltraVNC settings(ultravnc.ini) is not exists.");
+            throw new UltraVNCException("UltraVNC settings(ultravnc.ini) is not exists.");
         }
 
         // 根据文件路径创建缓冲输出流

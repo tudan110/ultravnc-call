@@ -7,12 +7,12 @@ package indi.tudan.uvnccall.exception;
  * @date 2019-09-04 17:14:44
  * @since 1.0
  */
-public class UltraVNCNotFoundException extends RuntimeException {
+public class UltraVNCException extends RuntimeException {
 
     /**
      * 空构造器
      */
-    public UltraVNCNotFoundException() {
+    public UltraVNCException() {
         super();
     }
 
@@ -21,7 +21,7 @@ public class UltraVNCNotFoundException extends RuntimeException {
      *
      * @param message 消息
      */
-    public UltraVNCNotFoundException(String message) {
+    public UltraVNCException(String message) {
         super(message);
     }
 
@@ -30,7 +30,7 @@ public class UltraVNCNotFoundException extends RuntimeException {
      *
      * @param cause 原因
      */
-    public UltraVNCNotFoundException(Throwable cause) {
+    public UltraVNCException(Throwable cause) {
         super(cause);
     }
 
@@ -40,7 +40,7 @@ public class UltraVNCNotFoundException extends RuntimeException {
      * @param message 消息
      * @param cause   原因
      */
-    public UltraVNCNotFoundException(String message, Throwable cause) {
+    public UltraVNCException(String message, Throwable cause) {
         super(message, cause);
     }
 
