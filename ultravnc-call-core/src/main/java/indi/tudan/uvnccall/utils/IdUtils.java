@@ -6,15 +6,30 @@ import java.util.Set;
 
 /**
  * Id 工具类
- * JAVA 随机产生-100到Integer.MAX_VALUE之间的随机整数
+ * JAVA 随机产生 100 到 Integer.MAX_VALUE 之间的随机整数
  *
  * @author wangtan
  * @date 2019-09-03 15:28:11
+ * @see #getVNCSessionId() 随机生成 VNCSessionId，大量数据不能保证唯一
+ * @see #getVNCSessionId(boolean) 通过编号池来控制，保证唯一，注意：使用后应立即销毁编号（从编号池中移出，以免占用不必要的内存空间）
  * @since 1.0
  */
 public class IdUtils {
 
-    private static final Set<String> STRING_SET = new HashSet<>();
+    /**
+     * 默认最小值
+     */
+    private static final int DEFAULT_MIN_VALUE = 100;
+
+    /**
+     * 默认最大值
+     */
+    private static final int DEFAULT_MAX_VALUE = Integer.MAX_VALUE;
+
+    /**
+     * 存储正在使用的编号，避免编号重复
+     */
+    private static final Set<String> ID_STRING_SET = new HashSet<>();
 
     /**
      * Don't let anyone else instantiate this class
@@ -23,7 +38,75 @@ public class IdUtils {
     }
 
     /**
-     * 求[min, max]区间之间的随机整数。
+     * 随机生成 VNCSessionId，生成 100 ~ 0x7fffffff 的随机整数
+     * 大量数据不能保证唯一
+     * 效率：1 000 000 / s （一秒钟生成 1 千万个）
+     *
+     * @return String
+     * @author wangtan
+     * @date 2019-09-04 09:03:10
+     * @since 1.0
+     */
+    public static String getVNCSessionId() {
+        return getVNCSessionId(false);
+    }
+
+    /**
+     * 生成 VNCSessionId，生成 100 ~ 0x7fffffff 的随机整数
+     *
+     * <pre>
+     *     两种方式：
+     *     <ul>
+     *         <li>absolutely == true，通过编号池来控制，保证唯一，注意：使用后应立即销毁编号（从编号池中移出，以免占用不必要的内存空间）</li>
+     *         <li>absolutely == false，大量数据不能保证唯一。效率：200 000 / s （一秒钟生成 2 百万个）</li>
+     *     </ul>
+     * </pre>
+     *
+     * @param absolutely 是否控制，必须唯一
+     * @return String
+     * @author wangtan
+     * @date 2019-09-03 15:30:06
+     * @since 1.0
+     */
+    public static String getVNCSessionId(boolean absolutely) {
+
+        String result = "";
+
+        if (absolutely) {
+            // 通过编号池来控制，保证唯一，注意：使用后应立即销毁编号（从编号池中移出，以免占用不必要的内存空间）
+
+            result = randomIntMinToMaxToString(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
+
+            // 判断编号是否正在被使用
+            while (contains(result)) {
+                result = randomIntMinToMaxToString(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
+            }
+
+            // 若当前编号没有被使用，则加入编号池
+            add(result);
+        } else {
+            result = randomIntMinToMaxToString(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取从 min 到 max 的编号
+     *
+     * @param min 最小值
+     * @param max 最大值
+     * @return String
+     * @author wangtan
+     * @date 2019-09-04 09:46:36
+     * @since 1.0
+     */
+    public static String randomIntMinToMaxToString(int min, int max) {
+        return randomIntMinToMax(min, max) + "";
+    }
+
+    /**
+     * 求 [min, max] 区间之间的随机整数。
      *
      * @param min 最小值
      * @param max 最大值
@@ -51,35 +134,51 @@ public class IdUtils {
     }
 
     /**
-     * 生成 VNCSessionId
+     * 判断编号池是否包含此编号
      *
-     * @return String
+     * @param id 编号
      * @author wangtan
-     * @date 2019-09-03 15:30:06
+     * @date 2019-09-04 09:14:55
      * @since 1.0
      */
-    public static String getVNCSessionId() {
-
-        // 生成 100 ~ 0x7fffffff 的随机整数
-        String result = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
-        while (STRING_SET.contains(result)) {
-            result = randomIntMinToMax(100, Integer.MAX_VALUE) + "";
-        }
-        STRING_SET.add(result);
-
-        return result;
+    private static boolean contains(String id) {
+        return ID_STRING_SET.contains(id);
     }
 
-    public static void main(String[] args) {
-        //System.out.println(Integer.MAX_VALUE);
-        //System.out.println(randomIntMinToMax(100, Integer.MAX_VALUE));
+    /**
+     * 加入编号池
+     *
+     * @param id 编号
+     * @author wangtan
+     * @date 2019-09-04 09:12:52
+     * @since 1.0
+     */
+    private static void add(String id) {
+        ID_STRING_SET.add(id);
+    }
 
-        Set<String> set = new HashSet<>();
-        for (int i = 0; i < 1000000; i++) {
-            set.add(getVNCSessionId());
-        }
-        System.out.println(STRING_SET.size());
-        System.out.println(set.size());
+    /**
+     * 移出编号池
+     *
+     * @param id 编号
+     * @author wangtan
+     * @date 2019-09-04 09:13:15
+     * @since 1.0
+     */
+    private static void remove(String id) {
+        ID_STRING_SET.remove(id);
+    }
+
+    /**
+     * 移出编号池
+     *
+     * @param id 编号
+     * @author wangtan
+     * @date 2019-09-04 09:13:26
+     * @since 1.0
+     */
+    private static void delete(String id) {
+        remove(id);
     }
 
 }
