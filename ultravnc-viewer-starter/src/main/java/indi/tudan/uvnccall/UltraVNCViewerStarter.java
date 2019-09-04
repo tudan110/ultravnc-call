@@ -18,7 +18,6 @@ public class UltraVNCViewerStarter {
     public static void main(String[] args) {
 
         // 启动 UltraVNC Viewer
-
         switch (args.length) {
             case 1:
 
