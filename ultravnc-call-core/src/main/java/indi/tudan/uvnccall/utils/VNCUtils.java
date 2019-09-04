@@ -2,10 +2,10 @@ package indi.tudan.uvnccall.utils;
 
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
+import indi.tudan.uvnccall.exception.UltraVNCNotFoundException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 /**
@@ -176,9 +176,14 @@ public class VNCUtils {
     public static void startUltraVNCServer(String puppetIdNumber, String ultraVNCServerPath,
                                            String repeaterServerIP, String repeaterVNCServerListenPort) {
 
+        // 若程序文件是否不存在，则抛出异常
+        if (!FileUtils.isFileExists(ultraVNCServerPath)) {
+            throw new UltraVNCNotFoundException("UltraVNC Server(winvnc.exe) is not exists.");
+        }
+
         // 判断 UltraVNC Server 是否已经运行，若已经在运行了，则需要停止
         if (RuntimeUtils.isTaskAlive(getUltraVNCServerImageName())) {
-            stopUltraVNCServer(Paths.get(ultraVNCServerPath).getFileName().toString());
+            stopUltraVNCServer(FileUtils.getFileNameByFilePath(ultraVNCServerPath));
         }
 
         RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -autoreconnect ID:{1} -connect {2}:{3} -run",
@@ -266,6 +271,12 @@ public class VNCUtils {
      */
     public static void startUltraVNCViewer(String puppetIdNumber, String ultraVNCViewerPath,
                                            String repeaterServerIP, String repeaterVNCViewerListenPort) {
+
+        // 若程序文件是否不存在，则抛出异常
+        if (!FileUtils.isFileExists(ultraVNCViewerPath)) {
+            throw new UltraVNCNotFoundException("UltraVNC Viewer(vncviewer.exe) is not exists.");
+        }
+
         RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
                 ultraVNCViewerPath,
                 repeaterServerIP,
@@ -286,6 +297,12 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String readUltraVNCIni(String iniFilePath, String idNumber) {
+
+        // 若配置文件是否不存在，则抛出异常
+        if (!FileUtils.isFileExists(iniFilePath)) {
+            throw new UltraVNCNotFoundException("UltraVNC settings(ultravnc.ini) is not exists.");
+        }
+
         String line;
         StringBuilder buf = new StringBuilder();
 
@@ -318,17 +335,22 @@ public class VNCUtils {
     /**
      * 将内容回写到文件 ultravnc.ini 中
      *
-     * @param filePath 文件路径
-     * @param content  待写入文件内容
+     * @param iniFilePath 文件路径
+     * @param content     待写入文件内容
      * @author wangtan
      * @date 2019-08-29 11:22:31
      * @since 1.0
      */
-    private static void writeUltraVNCIni(String filePath, String content) {
+    private static void writeUltraVNCIni(String iniFilePath, String content) {
+
+        // 若配置文件是否不存在，则抛出异常
+        if (!FileUtils.isFileExists(iniFilePath)) {
+            throw new UltraVNCNotFoundException("UltraVNC settings(ultravnc.ini) is not exists.");
+        }
 
         // 根据文件路径创建缓冲输出流
-        //try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
+        //try (BufferedWriter bw = new BufferedWriter(new FileWriter(iniFilePath))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(iniFilePath), StandardCharsets.UTF_8))) {
 
             // 将内容写入文件中
             bw.write(content);
