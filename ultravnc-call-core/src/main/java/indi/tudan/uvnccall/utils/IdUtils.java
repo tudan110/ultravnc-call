@@ -40,7 +40,6 @@ public class IdUtils {
     /**
      * 随机生成 VNCSessionId，生成 100 ~ 0x7fffffff 的随机整数
      * 大量数据不能保证唯一
-     * 效率：1 000 000 / s （一秒钟生成 1 千万个）
      *
      * @return String
      * @author wangtan
@@ -57,8 +56,14 @@ public class IdUtils {
      * <pre>
      *     两种方式：
      *     <ul>
-     *         <li>absolutely == true，通过编号池来控制，保证唯一，注意：使用后应立即销毁编号（从编号池中移出，以免占用不必要的内存空间）</li>
-     *         <li>absolutely == false，大量数据不能保证唯一。效率：200 000 / s （一秒钟生成 2 百万个）</li>
+     *         <li>
+     *             1. absolutely == true，通过编号池来控制，保证唯一，注意：使用后应立即销毁编号（从编号池中移出，以免占用不必要的内存空间）。
+     *             效率：200 000 / s （一秒钟生成 2 百万个）
+     *         </li>
+     *         <li>
+     *             2. absolutely == false，大量数据不能保证唯一
+     *             效率：1 000 000 / s （一秒钟生成 1 千万个）
+     *         </li>
      *     </ul>
      * </pre>
      *
