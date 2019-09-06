@@ -23,6 +23,7 @@
         <module>ultravnc-server-starter</module>
         <module>ultravnc-server-stoper</module>
         <module>ultravnc-viewer-starter</module>
+        <module>ultravnc-session-manager</module>
     </modules>
 
     <build>
