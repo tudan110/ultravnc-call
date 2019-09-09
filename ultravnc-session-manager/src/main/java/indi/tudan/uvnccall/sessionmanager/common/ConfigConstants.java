@@ -10,6 +10,11 @@ package indi.tudan.uvnccall.sessionmanager.common;
 public class ConfigConstants {
 
     /**
+     * 默认中继服务器名称
+     */
+    public static final String DEFAULT_REPEATER_NAME = "中继服务器";
+
+    /**
      * 默认会话描述
      */
     public static final String DEFAULT_SESSION_DESCRIPTION = "临时会话";
