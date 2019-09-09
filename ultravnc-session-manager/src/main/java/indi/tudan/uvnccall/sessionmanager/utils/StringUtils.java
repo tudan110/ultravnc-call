@@ -1,4 +1,4 @@
-package indi.tudan.uvnccall.utils;
+package indi.tudan.uvnccall.sessionmanager.utils;
 
 /**
  * String 工具类

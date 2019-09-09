@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/user">User</router-link>
+      <router-link to="/session">会话管理</router-link>
     </div>
     <router-view/>
   </div>

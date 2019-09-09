@@ -1,45 +1,80 @@
 <template>
-  <div class="hello">
+  <div class="outline">
     <h1>{{ msg }}</h1>
+    <br />
     <h2>{{ msgStr }}</h2>
+    <br />
+    <Table :columns="columns1" :data="data1"></Table>
+    <br />
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      在这里查看当前会话状态
+      <a href="/usm/session" target="_blank" rel="noopener">会话管理</a>
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: String
   },
-  data () {
-    return{
-      msgStr: '你好啊！'
-    }
+  data() {
+    return {
+      msgStr: "概要信息",
+      columns1: [
+        {
+          title: "名称",
+          key: "name"
+        },
+        {
+          title: "状态",
+          key: "state",
+          render: (h, params) => {
+            return h(
+              "span",
+              {
+                style: {
+                  color: "green",
+                  fontSize: "bold"
+                }
+              },
+              "正常"
+            );
+          }
+        },
+        {
+          title: "IP",
+          key: "ip"
+        },
+        {
+          title: "UltraVNC Server 监听端口",
+          key: "serverPort"
+        },
+        {
+          title: "UltraVNC Viewer 监听端口",
+          key: "viewerPort"
+        }
+      ],
+      data1: [
+        {
+          name: "中继服务器",
+          state: "正常",
+          ip: "10.20.16.48",
+          serverPort: "5500",
+          viewerPort: "5901"
+        }
+      ]
+    };
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.outline {
+  margin: 20px 300px;
+}
 h3 {
   margin: 40px 0 0;
 }

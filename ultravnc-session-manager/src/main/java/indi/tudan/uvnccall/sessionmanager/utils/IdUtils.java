@@ -1,8 +1,9 @@
 package indi.tudan.uvnccall.sessionmanager.utils;
 
-import indi.tudan.uvnccall.sessionmanager.Session;
+import indi.tudan.uvnccall.sessionmanager.common.ConfigConstants;
+import indi.tudan.uvnccall.sessionmanager.model.Session;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class IdUtils {
      * 存储正在使用的编号，避免编号重复
      */
     //public static final Set<String> ID_STRING_SET = new HashSet<>();
-    public static final Map<String, Session> SESSION_MAP = new HashMap<>();
+    public static final Map<String, Session> SESSION_MAP = new LinkedHashMap<>();
     /**
      * 默认最小值
      */
@@ -89,7 +90,10 @@ public class IdUtils {
             }
 
             // 若当前编号没有被使用，则加入编号池
-            add(sessionId, Session.builder().id(sessionId).build());
+            add(sessionId, Session.builder()
+                    .id(sessionId)
+                    .description(ConfigConstants.DEFAULT_SESSION_DESCRIPTION)
+                    .build());
         } else {
             sessionId = randomIntMinToMaxToString(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
         }
@@ -183,7 +187,7 @@ public class IdUtils {
      * @date 2019-09-04 09:13:26
      * @since 1.0
      */
-    private static void delete(String id) {
+    public static void release(String id) {
         remove(id);
     }
 

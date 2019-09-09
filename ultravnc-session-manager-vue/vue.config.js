@@ -1,6 +1,7 @@
 module.exports = {
-  lintOnSave: false,
-  devServer: {
-    port: 8000,
-  },
+    publicPath:'/usm',
+    lintOnSave: false,
+    devServer: {
+        port: 8000,
+    }
 }

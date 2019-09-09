@@ -1,14 +1,9 @@
 package indi.tudan.uvnccall.sessionmanager.controller;
 
-import indi.tudan.uvnccall.sessionmanager.Session;
 import indi.tudan.uvnccall.sessionmanager.service.IdService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * SessionId 控制器
@@ -19,37 +14,39 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/session")
+@RequestMapping("/api/id")
 public class IdController {
 
     @Autowired
     private IdService idService;
 
     /**
-     * 列出所有会话信息
-     *
-     * @return List<JSONObject>
-     * @author wangtan
-     * @date 2019-09-05 13:01:50
-     * @since 1.0
-     */
-    @GetMapping
-    public Map<String, Session> listSession() {
-        log.info("list all session info.");
-        return idService.listSessions();
-    }
-
-    /**
      * 获取一个新的会话 Id
+     * http://localhost:9081/usm/api/id
      *
      * @return String
      * @author wangtan
      * @date 2019-09-05 12:47:10
      * @since 1.0
      */
-    @GetMapping("id")
-    public String getSessionId() {
+    @GetMapping
+    public String getSessionId(@RequestParam(value = "ip", required = false) String controlledEndIP,
+                               @RequestParam(value = "user", required = false) String controlledEndUser) {
         log.info("get a new session id.");
-        return idService.getSessionId();
+        return idService.getSessionId(controlledEndIP, controlledEndUser);
+    }
+
+    /**
+     * 释放一个会话 Id
+     *
+     * @param sessionId 会话 Id
+     * @author wangtan
+     * @date 2019-09-06 11:00:52
+     * @since 1.0
+     */
+    @DeleteMapping
+    public void releaseSessionId(@RequestParam(value = "sessionId") String sessionId) {
+        log.info("release a session id.");
+        idService.releaseSessionId(sessionId);
     }
 }
