@@ -73,6 +73,7 @@
 import session from "../api/session";
 import id from "../api/id";
 import config from "../config/config";
+
 export default {
   data() {
     return {

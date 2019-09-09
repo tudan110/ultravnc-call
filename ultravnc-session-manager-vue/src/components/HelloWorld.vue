@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import outline from "../api/outline";
+
 export default {
   name: "HelloWorld",
   props: {
@@ -25,47 +27,66 @@ export default {
       columns1: [
         {
           title: "名称",
+          align: "center",
           key: "name"
         },
         {
           title: "状态",
+          align: "center",
           key: "state",
           render: (h, params) => {
             return h(
               "span",
               {
                 style: {
-                  color: "green",
+                  color: params.row.state ? "green" : "red",
                   fontSize: "bold"
                 }
               },
-              "正常"
+              params.row.state ? "正常" : "异常"
             );
           }
         },
         {
           title: "IP",
+          align: "center",
           key: "ip"
         },
         {
           title: "UltraVNC Server 监听端口",
+          align: "center",
           key: "serverPort"
         },
         {
           title: "UltraVNC Viewer 监听端口",
+          align: "center",
           key: "viewerPort"
         }
       ],
       data1: [
         {
-          name: "中继服务器",
-          state: "正常",
-          ip: "10.20.16.48",
-          serverPort: "5500",
-          viewerPort: "5901"
+          name: "",
+          state: "",
+          ip: "",
+          serverPort: "",
+          viewerPort: ""
         }
       ]
     };
+  },
+  created() {
+    this.getOutlineInfo();
+  },
+  methods: {
+    getOutlineInfo() {
+      outline.getOutlineInfo().then(res => {
+        this.data1[0].name = res.data.name;
+        this.data1[0].state = res.data.state;
+        this.data1[0].ip = res.data.ip;
+        this.data1[0].serverPort = res.data.serverPort;
+        this.data1[0].viewerPort = res.data.viewerPort;
+      });
+    }
   }
 };
 </script>
