@@ -30,8 +30,8 @@ public class IdController {
      * @since 1.0
      */
     @GetMapping
-    public String getSessionId(@RequestParam(value = "ip", required = false) String controlledEndIP,
-                               @RequestParam(value = "user", required = false) String controlledEndUser) {
+    public String getSessionId(@RequestParam(value = "controlledEndIP", required = false) String controlledEndIP,
+                               @RequestParam(value = "controlledEndUser", required = false) String controlledEndUser) {
         log.info("get a new session id.");
         return idService.getSessionId(controlledEndIP, controlledEndUser);
     }

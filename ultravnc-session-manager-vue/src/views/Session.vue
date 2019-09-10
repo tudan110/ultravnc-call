@@ -214,7 +214,7 @@ export default {
     releaseAllSessions() {
       this.deleteloading = true;
       session.releaseAllSessions().then(res => {
-        this.listSessions(this.pageNum);
+        this.listSessions(1);
         this.deleteloading = false;
         this.isDeleteAllShow = false;
         this.$Message.success("释放成功。");
