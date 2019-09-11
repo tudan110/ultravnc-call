@@ -34,16 +34,24 @@ public class SessionController {
      * @since 1.0
      */
     @GetMapping
-    public JSONObject listSession(@RequestParam(value = "pageNum") int pageNum,
-                                  @RequestParam(value = "pageSize") int pageSize) {
+    public JSONObject listSession(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                  @RequestParam(value = "pageSize", required = false, defaultValue = "0") int pageSize) {
         log.info("list all sessions info.");
         List<Session> data = sessionService.listSessions();
-        int fromIndex = (pageNum - 1) * pageSize;
-        int toIndex = Math.min(data.size(), (pageNum * pageSize));
-        return WebHelper.createResult(
-                data.subList(fromIndex, toIndex),
-                data.size()
-        );
+
+        if (pageSize == 0) {
+            return WebHelper.createResult(
+                    data,
+                    data.size()
+            );
+        } else {
+            int fromIndex = (pageNum - 1) * pageSize;
+            int toIndex = Math.min(data.size(), (pageNum * pageSize));
+            return WebHelper.createResult(
+                    data.subList(fromIndex, toIndex),
+                    data.size()
+            );
+        }
     }
 
     /**
