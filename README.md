@@ -3,7 +3,7 @@
 
 # 如何搭建中继服务器
 &ensp;&ensp;&ensp;&ensp;请参考我的博文：
-https://blog.csdn.net/WTUDAN/article/details/100214799
+https://tudan.blog.csdn.net/article/details/100214799
 
 1. ### UltraVNCServerStarter（UltraVNCServer 启动器）
 
