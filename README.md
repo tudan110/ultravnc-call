@@ -5,6 +5,10 @@
 &ensp;&ensp;&ensp;&ensp;请参考我的博文：
 https://tudan.blog.csdn.net/article/details/100214799
 
+![项目架构说明](./项目架构说明.png)
+
+<center>项目架构说明</center>
+
 1. ### UltraVNCServerStarter（UltraVNCServer 启动器）
 
    参数讲解：
@@ -63,4 +67,20 @@ https://tudan.blog.csdn.net/article/details/100214799
    ```
    # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
    java -jar ultravnc-ini-modifier-1.0.jar 90699 ["C:/Users/tudan/Desktop/ultravnc.ini"]
+   ```
+   
+5. 获取会话 id
+
+   http 接口，get 方式
+
+   ```
+   http://localhost:9081/usm/api/id
+   ```
+
+6. 释放会话 id
+
+   http 接口，delete 方式
+   
+   ```
+   http://localhost:9081/usm/api/id?sessionId=1536406588
    ```
