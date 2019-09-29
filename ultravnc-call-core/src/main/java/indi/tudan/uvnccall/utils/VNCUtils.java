@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall.utils;
 
+import cn.hutool.setting.Setting;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
 import indi.tudan.uvnccall.exception.UltraVNCException;
@@ -58,7 +59,11 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCServerPath() {
-        return ConfigConstants.ULTRAVNC_SERVER_PATH;
+        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+            return ConfigConstants.ULTRAVNC_SERVER_PATH;
+        } else {
+            return ClassUtils.getCurrentProgramPath() + "/../UltraVNC/winvnc.exe";
+        }
     }
 
     /**
@@ -70,7 +75,11 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCViewerPath() {
-        return ConfigConstants.ULTRAVNC_VIEWER_PATH;
+        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+            return ConfigConstants.ULTRAVNC_VIEWER_PATH;
+        } else {
+            return ClassUtils.getCurrentProgramPath() + "/../UltraVNC/vncviewer.exe";
+        }
     }
 
     /**
@@ -94,7 +103,20 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterServerIP() {
-        return ConfigConstants.ULTRAVNC_REPEATER_SERVER_IP;
+        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+            return ConfigConstants.ULTRAVNC_REPEATER_SERVER_IP;
+        } else {
+            String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
+
+            // 若程序文件是否不存在，则抛出异常
+            if (!FileUtils.isFileExists(settingPath)) {
+                throw new UltraVNCException("ultravnc-call.setting is not exists.");
+            }
+
+            Setting setting = SettingUtils.init(settingPath);
+            String province = setting.getStr("province", "info", "000");
+            return setting.getByGroup("ultravnc.repeater.server.ip." + province, "repeater");
+        }
     }
 
     /**

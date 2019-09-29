@@ -13,6 +13,12 @@ import java.nio.file.Paths;
 public class FileUtils {
 
     /**
+     * Don't let anyone else instantiate this class
+     */
+    private FileUtils() {
+    }
+
+    /**
      * 根据文件全路径获取文件名称
      *
      * @param filePath 文件全路径

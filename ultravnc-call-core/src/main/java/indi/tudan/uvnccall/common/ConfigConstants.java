@@ -15,6 +15,11 @@ public class ConfigConstants {
     public static final String CONFIG_PATH = "/config.properties";
 
     /**
+     * 项目开发模式
+     */
+    public static final String SYSTEM_DEVELOP_MODE = SystemConfig.getProperty("system.develop.mode");
+
+    /**
      * windows 系统默认编码
      */
     public static final String SYSTEM_DEFAULT_CHARSET = SystemConfig.getProperty("system.default.charset");

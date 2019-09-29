@@ -1,13 +1,44 @@
 package indi.tudan.uvnccall.utils;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
+import java.util.Objects;
+
 /**
  * 类的工具类
  *
  * @author wangtan
- * @date 2019-09-05 09:41:25
+ * @date 2019-09-28 11:07:12
  * @since 1.0
  */
 public class ClassUtils {
+
+    /**
+     * Don't let anyone else instantiate this class
+     */
+    private ClassUtils() {
+    }
+
+    /**
+     * 获取当前程序所在路径
+     *
+     * @return String
+     * @date 2019-09-28 11:08:39
+     * @since 1.0
+     */
+    public static String getCurrentProgramPath() {
+        CodeSource codeSource = ClassUtils.class.getProtectionDomain().getCodeSource();
+
+        File jarFile = null;
+        try {
+            jarFile = new File(codeSource.getLocation().toURI().getPath());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return Objects.requireNonNull(jarFile, "jar file should not be null.").getParentFile().getPath();
+    }
 
     /**
      * 判断由提供的类名（类的全限定名）标识的类是否存在并可以加载
