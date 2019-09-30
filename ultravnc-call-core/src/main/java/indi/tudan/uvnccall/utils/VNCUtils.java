@@ -299,7 +299,7 @@ public class VNCUtils {
             throw new UltraVNCException("UltraVNC Viewer(vncviewer.exe) is not exists.");
         }
 
-        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3}",
+        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3} -fullscreen -directx -notoolbar",
                 ultraVNCViewerPath,
                 repeaterServerIP,
                 repeaterVNCViewerListenPort,
