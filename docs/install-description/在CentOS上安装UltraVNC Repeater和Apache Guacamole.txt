@@ -1,0 +1,77 @@
+﻿在CentOS上安装UltraVNC Repeater和Apache Guacamole
+
+一、安装UltraVNC Repeater
+
+Method.1 官方只有windows版本的源代码，如果又windows的服务器最好，若没有可以尝试安装wine，并运行exe
+Method.2 几经周折，在俄罗斯的一个网站上下载到了linux版本的repeater源代码（uvncrep017-ws.tar.gz），相关讨论帖子请查看：
+http://forum.ultravnc.info/viewtopic.php?p=80701
+https://www.wisdomsoftware.gr/el/ultravncrepeater/5-how-to-install-ultravnc-repeater-for-linux-debian-a-centos
+
+编译安装步骤如下：
+1、#解压源代码文件
+tar -xvf uvncrep017-ws.tar
+2、#编译并安装
+cd uvncrep017-ws
+make & make install
+3、#为中继器服务添加一个用户
+useradd uvncrep
+4、#根据需要编辑配置文件 /etc/uvnc/uvncrepeater.ini ，默认如下
+   #检查如下参数:
+viewerport = 5901
+maxsessions = 10
+runasuser = uvncrep
+logginglevel = 2
+srvListAllow1 = 192.168.0.0 ;Allow network 192.168.x.x
+srvListDeny0 = 127.0.0.1 ;Deny loopback
+requirelistedserver=1
+5、#启动服务
+/etc/init.d/uvncrepeater start
+
+使用方法和windows端一样
+
+二、安装Apache Guacamole
+
+1、下载相关的rpm包，注意系统版本号，其中devel包依赖非devel包，如：uuid-devel依赖uuid包。
+1）必选依赖
+cairo-devel
+libjpeg-devel
+libpng-devel
+uuid-devel
+2）vnc必选依赖
+libvncserver-devel
+3）图片压缩依赖
+libwebp-devel
+
+2、安装guacamole-server
+1）切换到guacamole-server目录，执行 ./configure --with-init-dir=/etc/init.d ，检查编译环境
+2）根据提示安装，编译所需的依赖，完成后编译guacamole-server
+3）make & make install
+4）执行guacd，若程序未启动，则ldconfig（动态加载新安装的库），然后guacd应该就成功启动了
+
+3、修改环境变量
+1）vim /etc/profile，增加 export GUACAMOLE_HOME=/home/pto/app/guacamole ，guacamole配置文件所在的实际目录，修改后刷新：source /etc/profile
+2）新增配置文件 guacamole.properties、logback.xml、user-mapping.xml，根据实际情况配置
+
+4、在tomcat8中发布web端war包
+1）若启动失败，查看是否是端口占用
+2）查看日志，若遇到这个错误：“At least one JAR was scanned for TLDs yet contained no TLDs”
+   在Tomcat的bin目录下找到catalina.sh，然后打开它，在以下位置添加一行代码-Djava.security.egd=file:/dev/urandom
+   JAVA_OPTS="$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/urandom"
+
+5、修改了配置文件后，需要重启tomcat，guacd不需要重启，会自动更新（但是需要时间，可能需要等一会儿）
+
+三、UltraVNC Server端需要配置反向代理Repeater
+
+1、找到安装目录
+2、修改ultravnc.ini文件
+[admin]
+Service_commandline=-autoreconnect ID:90699 -connect 10.20.16.48:5500
+3、重启服务
+
+四、使用guacamole或者UltraVNC Viewer连接
+1、guacamole：
+vnc://10.20.16.48:5901?dest-host=ID&dest-port=90699
+
+2、UltraVNC Viewer
+配置Proxy/Repeater：10.20.16.48:5901
+然后用 id:90699 连接就可以了
