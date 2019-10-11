@@ -299,11 +299,28 @@ public class VNCUtils {
             throw new UltraVNCException("UltraVNC Viewer(vncviewer.exe) is not exists.");
         }
 
-        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3} -fullscreen -directx -notoolbar",
+        String viewerParams = "";
+        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+            viewerParams = " -directx -fullscreen";
+        } else {
+            String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
+
+            // 若程序文件是否不存在，则抛出异常
+            if (!FileUtils.isFileExists(settingPath)) {
+                throw new UltraVNCException("ultravnc-call.setting is not exists.");
+            }
+
+            Setting setting = SettingUtils.init(settingPath);
+            viewerParams = setting.getStr("ultravnc.viewer.cmd", "cmd", " -directx -fullscreen");
+        }
+        System.out.println("启动参数: " + viewerParams);
+
+        RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3} {4}",
                 ultraVNCViewerPath,
                 repeaterServerIP,
                 repeaterVNCViewerListenPort,
-                puppetIdNumber),
+                puppetIdNumber,
+                viewerParams),
                 ConfigConstants.START_ULTRAVNC_VIEWER_ERROR_INFO
         );
     }

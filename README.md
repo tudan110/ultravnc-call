@@ -9,7 +9,23 @@ https://tudan.blog.csdn.net/article/details/100214799
 
 <center>项目架构说明</center>
 
-1. ### UltraVNCServerStarter（UltraVNCServer 启动器）
+1. ### ultravnc-call-core 核心工具类
+
+   1. 注意配置文件 config.properties
+   
+   ```
+   # 项目开发模式（dev: 开发测试；其他都是发布版本，若发布，您可以使用 release，没有强制要求，阅读代码即可了解）
+   system.develop.mode=dev
+   ```
+   
+2. ### 配置文件 ultravnc-call.setting
+
+   请放到与 jar 包同级的目录下面，因为从“当前程序所在路径”获取的配置文件
+   ```java
+   String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
+   ```
+
+3. ### ultravnc-server-starter（UltraVNCServer 启动器）
 
    参数讲解：
 
@@ -26,7 +42,7 @@ https://tudan.blog.csdn.net/article/details/100214799
    java -jar ultravnc-server-starter-1.0.jar 90699 ["C:/Program Files/uvnc bvba/UltraVNC/winvnc.exe"] [10.20.16.48] [5500]
    ```
 
-2. ### UltraVNCServerStoper（UltraVNCServer 停止器）
+4. ### ultravnc-server-stoper（UltraVNCServer 停止器）
 
    参数讲解：
 
@@ -37,7 +53,7 @@ https://tudan.blog.csdn.net/article/details/100214799
    java -jar ultravnc-server-stoper-1.0.jar [winvnc.exe]
    ```
 
-3. ### UltraVNCViewerStarter（UltraVNCViewer 启动器）
+5. ### ultravnc-viewer-starter（UltraVNCViewer 启动器）
 
    参数讲解：
 
@@ -54,7 +70,7 @@ https://tudan.blog.csdn.net/article/details/100214799
    java -jar ultravnc-viewer-starter-1.0.jar 90699 ["C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe"] [10.20.16.48] [5901]
    ```
 
-4. ### UltraVNCIniModifier（修改 UltraVNC 配置文件 ultravnc.ini）
+6. ### ultravnc-ini-modifier（修改 UltraVNC 配置文件 ultravnc.ini）
 
    &ensp;&ensp;&ensp;&ensp;要使 ultravnc.ini 生效，须安装系统服务，不建议这么做，使用前三个接口就可以搞定了。
 
@@ -68,19 +84,20 @@ https://tudan.blog.csdn.net/article/details/100214799
    # 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
    java -jar ultravnc-ini-modifier-1.0.jar 90699 ["C:/Users/tudan/Desktop/ultravnc.ini"]
    ```
+7. ### ultravnc-session-manager （会话管理程序）
+
+   1. 获取会话 id
    
-5. 获取会话 id
-
-   http 接口，get 方式
-
-   ```
-   http://localhost:9081/usm/api/id
-   ```
-
-6. 释放会话 id
-
-   http 接口，delete 方式
+      http(restful) 接口，get 方式
    
-   ```
-   http://localhost:9081/usm/api/id?sessionId=1536406588
-   ```
+      ```
+      http://localhost:9081/usm/api/id
+      ```
+   
+   2. 释放会话 id
+   
+      http(restful) 接口，delete 方式
+      
+      ```
+      http://localhost:9081/usm/api/id?sessionId=1536406588
+      ```
