@@ -127,12 +127,12 @@ public class IdUtils {
      */
     public static int randomIntMinToMax(int min, int max) {
 
-        //如果相等，直接返回，还生成个屁
+        // 如果相等，直接返回，还生成个屁
         if (min == max) {
             return max;
         }
 
-        //如果 min 比 max 大，交换两个的值，如果不交换下面 nextInt() 会出错
+        // 如果 min 比 max 大，交换两个的值，如果不交换下面 nextInt() 会出错
         if (min > max) {
             min ^= max;
             max ^= min;
