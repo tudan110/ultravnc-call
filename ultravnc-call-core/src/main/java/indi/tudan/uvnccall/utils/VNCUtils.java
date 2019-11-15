@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall.utils;
 
+import cn.hutool.log.StaticLog;
 import cn.hutool.setting.Setting;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.exception.NoRightAccessException;
@@ -62,7 +63,20 @@ public class VNCUtils {
         if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_SERVER_PATH;
         } else {
-            return ClassUtils.getCurrentProgramPath() + "/../UltraVNC/winvnc.exe";
+
+            // 获取配置信息
+            Setting setting = SettingUtils.getInstance().getSetting();
+
+            // 获取绝对路径
+            String absolutePath = setting.getByGroup("ultravnc.uvncserver.path.absolute", "path");
+
+            // 若绝对路径为空，则获取相对路径
+            if (StringUtils.isNotEmpty(absolutePath)) {
+                return absolutePath;
+            } else {
+                return ClassUtils.getCurrentProgramPath()
+                        + setting.getByGroup("ultravnc.uvncserver.path.relative", "path");
+            }
         }
     }
 
@@ -78,7 +92,20 @@ public class VNCUtils {
         if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_VIEWER_PATH;
         } else {
-            return ClassUtils.getCurrentProgramPath() + "/../UltraVNC/vncviewer.exe";
+
+            // 获取配置信息
+            Setting setting = SettingUtils.getInstance().getSetting();
+
+            // 获取绝对路径
+            String absolutePath = setting.getByGroup("ultravnc.uvncviewer.path.absolute", "path");
+
+            // 若绝对路径为空，则获取相对路径
+            if (StringUtils.isNotEmpty(absolutePath)) {
+                return absolutePath;
+            } else {
+                return ClassUtils.getCurrentProgramPath()
+                        + setting.getByGroup("ultravnc.uvncviewer.path.relative", "path");
+            }
         }
     }
 
@@ -106,14 +133,9 @@ public class VNCUtils {
         if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_REPEATER_SERVER_IP;
         } else {
-            String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
 
-            // 若程序文件是否不存在，则抛出异常
-            if (!FileUtils.isFileExists(settingPath)) {
-                throw new UltraVNCException("ultravnc-call.setting is not exists.");
-            }
-
-            Setting setting = SettingUtils.init(settingPath);
+            // 获取配置信息
+            Setting setting = SettingUtils.getInstance().getSetting();
             String province = setting.getStr("province", "info", "000");
             return setting.getByGroup("ultravnc.repeater.server.ip." + province, "repeater");
         }
@@ -200,6 +222,7 @@ public class VNCUtils {
 
         // 若程序文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(ultraVNCServerPath)) {
+            StaticLog.error("UltraVNC Server(winvnc.exe) is not exists.");
             throw new UltraVNCException("UltraVNC Server(winvnc.exe) is not exists.");
         }
 
@@ -207,6 +230,8 @@ public class VNCUtils {
         if (RuntimeUtils.isTaskAlive(getUltraVNCServerImageName())) {
             stopUltraVNCServer(FileUtils.getFileNameByFilePath(ultraVNCServerPath));
         }
+
+        StaticLog.info("starting UltraVNC Server...");
 
         RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -autoreconnect ID:{1} -connect {2}:{3} -run",
                 ultraVNCServerPath,
@@ -237,6 +262,9 @@ public class VNCUtils {
      * @since 1.0
      */
     public static void stopUltraVNCServer(String imageName) {
+
+        StaticLog.info("stopping UltraVNC Server...");
+
         RuntimeUtils.execAndPrintResults(MessageFormat.format("cmd /c taskkill /f /im \"{0}\"", imageName),
                 ConfigConstants.STOP_ULTRAVNC_SERVER_ERROR_INFO);
     }
@@ -296,6 +324,7 @@ public class VNCUtils {
 
         // 若程序文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(ultraVNCViewerPath)) {
+            StaticLog.error("UltraVNC Viewer(vncviewer.exe) is not exists.");
             throw new UltraVNCException("UltraVNC Viewer(vncviewer.exe) is not exists.");
         }
 
@@ -303,17 +332,14 @@ public class VNCUtils {
         if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             viewerParams = " -directx -fullscreen";
         } else {
-            String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
 
-            // 若程序文件是否不存在，则抛出异常
-            if (!FileUtils.isFileExists(settingPath)) {
-                throw new UltraVNCException("ultravnc-call.setting is not exists.");
-            }
-
-            Setting setting = SettingUtils.init(settingPath);
+            // 获取配置信息
+            Setting setting = SettingUtils.getInstance().getSetting();
             viewerParams = setting.getStr("ultravnc.viewer.cmd", "cmd", " -directx -fullscreen");
         }
-        System.out.println("启动参数: " + viewerParams);
+
+        StaticLog.info("start params: {}", viewerParams);
+        StaticLog.info("starting UltraVNC Viewer...");
 
         RuntimeUtils.execCatchErrorInfo(MessageFormat.format("{0} -proxy {1}:{2} ID:{3} {4}",
                 ultraVNCViewerPath,
@@ -339,6 +365,7 @@ public class VNCUtils {
 
         // 若配置文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(iniFilePath)) {
+            StaticLog.error("UltraVNC settings(ultravnc.ini) is not exists.");
             throw new UltraVNCException("UltraVNC settings(ultravnc.ini) is not exists.");
         }
 
@@ -384,6 +411,7 @@ public class VNCUtils {
 
         // 若配置文件是否不存在，则抛出异常
         if (!FileUtils.isFileExists(iniFilePath)) {
+            StaticLog.error("UltraVNC settings(ultravnc.ini) is not exists.");
             throw new UltraVNCException("UltraVNC settings(ultravnc.ini) is not exists.");
         }
 

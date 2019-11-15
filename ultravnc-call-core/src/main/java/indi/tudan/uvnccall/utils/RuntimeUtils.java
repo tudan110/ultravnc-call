@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall.utils;
 
+import cn.hutool.log.StaticLog;
 import indi.tudan.uvnccall.common.ConfigConstants;
 
 import java.io.BufferedReader;
@@ -56,7 +57,7 @@ public class RuntimeUtils {
 
         } catch (Exception e) {
             if (StringUtils.isNotEmpty(errorInfo)) {
-                System.out.println(errorInfo);
+                StaticLog.error(errorInfo);
             }
             e.printStackTrace();
         }
@@ -91,7 +92,7 @@ public class RuntimeUtils {
             }
         } catch (Exception e) {
             if (StringUtils.isNotEmpty(errorInfo)) {
-                System.out.println(errorInfo);
+                StaticLog.error(errorInfo);
             }
             e.printStackTrace();
         } finally {

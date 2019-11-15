@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall;
 
+import cn.hutool.log.StaticLog;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.utils.VNCUtils;
 
@@ -27,7 +28,7 @@ public class UltraVNCIniModifier {
             // 90699 "C:/Users/tudan/Desktop/ultravnc.ini"
             VNCUtils.modifyUltraVNCIni(args[0], args[1]);
         } else {
-            System.out.println(ConfigConstants.MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO);
+            StaticLog.error(ConfigConstants.MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO);
         }
 
 //        VNCUtils.modifyUltraVNCIni("C:\\Users\\tudan\\Desktop\\ultravnc.ini", "90699");

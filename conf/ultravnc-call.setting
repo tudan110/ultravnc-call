@@ -38,3 +38,15 @@ ultravnc.repeater.server.ip.851=135.0.64.108
 # -fullscreen 全屏
 # -notoolbar  不显示工具栏
 ultravnc.viewer.cmd= -directx
+
+
+# 调用 VNC 路径配置
+[path]
+# UltraVNC Server 程序绝对路径
+ultravnc.uvncserver.path.absolute=C:/Program Files/uvnc bvba/UltraVNC/winvnc.exe
+# UltraVNC Viewer 程序绝对路径
+ultravnc.uvncviewer.path.absolute=C:/Program Files/uvnc bvba/UltraVNC/vncviewer.exe
+# UltraVNC Server 程序相对路径
+ultravnc.uvncserver.path.relative=/../UltraVNC/winvnc.exe
+# UltraVNC Viewer 程序相对路径
+ultravnc.uvncviewer.path.relative=/../UltraVNC/vncviewer.exe

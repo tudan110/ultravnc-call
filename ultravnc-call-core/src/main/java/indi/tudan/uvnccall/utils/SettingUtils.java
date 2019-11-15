@@ -1,6 +1,7 @@
 package indi.tudan.uvnccall.utils;
 
 import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.log.StaticLog;
 import cn.hutool.setting.Setting;
 
 /**
@@ -12,10 +13,22 @@ import cn.hutool.setting.Setting;
  */
 public class SettingUtils {
 
+    private Setting setting = init();
+
     /**
      * Don't let anyone else instantiate this class
      */
     private SettingUtils() {
+    }
+
+    /**
+     * 获取单例对象
+     *
+     * @return 配置类
+     * @date 2019-11-15 10:22:03
+     */
+    public static SettingUtils getInstance() {
+        return SettingUtilsInstance.INSTANCE;
     }
 
     /**
@@ -26,7 +39,16 @@ public class SettingUtils {
      * @since 1.0
      */
     public static Setting init() {
-        return new Setting("ultravnc-call.setting");
+
+        String settingPath = ClassUtils.getCurrentProgramPath() + "/ultravnc-call.setting";
+
+        // 若程序文件不存在，则使用默认配置文件
+        if (!FileUtils.isFileExists(settingPath)) {
+            StaticLog.info("ultravnc-call.setting is not exists, and then, this program will use default settings.");
+            return new Setting("ultravnc-call.setting");
+        }
+
+        return new Setting(settingPath);
     }
 
     /**
@@ -41,15 +63,17 @@ public class SettingUtils {
         return new Setting(settingPath, CharsetUtil.CHARSET_UTF_8, true);
     }
 
-    /**
-     * 测试
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        Setting setting = SettingUtils.init();
-        String province = setting.getStr("province", "info", "000");
-        System.out.println(province);
-        System.out.println(setting.getByGroup("ultravnc.repeater.server.ip." + province, "repeater"));
+    public Setting getSetting() {
+        return setting;
     }
+
+    /**
+     * 内部类，实现单例
+     *
+     * @date 2019-11-15 10:22:08
+     */
+    private static class SettingUtilsInstance {
+        private static final SettingUtils INSTANCE = new SettingUtils();
+    }
+
 }

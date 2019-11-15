@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall;
 
+import cn.hutool.log.StaticLog;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.utils.VNCUtils;
 
@@ -40,7 +41,7 @@ public class UltraVNCServerStarter {
                 VNCUtils.startUltraVNCServer(args[0], args[1], args[2], args[3]);
                 break;
             default:
-                System.out.println(ConfigConstants.START_ULTRAVNC_SERVER_NO_PARAMETER_INFO);
+                StaticLog.error(ConfigConstants.START_ULTRAVNC_SERVER_NO_PARAMETER_INFO);
                 break;
         }
 
