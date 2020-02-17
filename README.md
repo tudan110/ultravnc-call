@@ -3,7 +3,7 @@
 
 项目发起者：tudan110  分支是：dev-wangtan
 
-新增开发者成员：lizhen0615  分支是：
+新增开发者成员：lizhen0615  分支是：dev-lizhen
 
 # 如何搭建中继服务器
 &ensp;&ensp;&ensp;&ensp;请参考我的博文：
