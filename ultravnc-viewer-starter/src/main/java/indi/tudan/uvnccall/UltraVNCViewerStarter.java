@@ -1,5 +1,6 @@
 package indi.tudan.uvnccall;
 
+import cn.hutool.log.StaticLog;
 import indi.tudan.uvnccall.common.ConfigConstants;
 import indi.tudan.uvnccall.utils.VNCUtils;
 
