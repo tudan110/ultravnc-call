@@ -35,7 +35,7 @@ public class VNCUtils {
      */
     private static String getUltraVNCServerImageName() {
         return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME)
-                ? "winvnc.exe" : ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME;
+                ? ConfigConstants.DEFAULT_ULTRAVNC_SERVER_IMAGE_NAME : ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME;
     }
 
     /**
@@ -48,7 +48,7 @@ public class VNCUtils {
      */
     private static String getUltraVNCViewerImageName() {
         return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME)
-                ? "vncviewer.exe" : ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME;
+                ? ConfigConstants.DEFAULT_ULTRAVNC_VIEWER_IMAGE_NAME : ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME;
     }
 
     /**
