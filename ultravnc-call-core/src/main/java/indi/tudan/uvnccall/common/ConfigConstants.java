@@ -35,9 +35,19 @@ public class ConfigConstants {
     public static final String ULTRAVNC_SERVER_IMAGE_NAME = SystemConfig.getProperty("ultravnc.uvncserver.image.name");
 
     /**
+     * 默认 UltraVNC Server 程序映像名称
+     */
+    public static final String DEFAULT_ULTRAVNC_SERVER_IMAGE_NAME = "winvnc.exe";
+
+    /**
      * UltraVNC Viewer 程序映像名称
      */
     public static final String ULTRAVNC_VIEWER_IMAGE_NAME = SystemConfig.getProperty("ultravnc.uvncviewer.image.name");
+
+    /**
+     * 默认 UltraVNC Viewer 程序映像名称
+     */
+    public static final String DEFAULT_ULTRAVNC_VIEWER_IMAGE_NAME = "vncviewer.exe";
 
     /**
      * UltraVNC Server 程序路径
