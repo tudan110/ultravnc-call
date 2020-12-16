@@ -20,6 +20,11 @@ public class ConfigConstants {
     public static final String SYSTEM_DEVELOP_MODE = SystemConfig.getProperty("system.develop.mode");
 
     /**
+     * 开发环境
+     */
+    public static final String DEVELOP_MODE = "dev";
+
+    /**
      * windows 系统默认编码
      */
     public static final String SYSTEM_DEFAULT_CHARSET = SystemConfig.getProperty("system.default.charset");
