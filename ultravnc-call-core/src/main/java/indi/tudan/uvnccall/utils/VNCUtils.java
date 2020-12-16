@@ -60,7 +60,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCServerPath() {
-        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+        if (ConfigConstants.DEVELOP_MODE.equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_SERVER_PATH;
         } else {
 
@@ -89,7 +89,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCViewerPath() {
-        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+        if (ConfigConstants.DEVELOP_MODE.equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_VIEWER_PATH;
         } else {
 
@@ -130,7 +130,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterServerIP() {
-        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+        if (ConfigConstants.DEVELOP_MODE.equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             return ConfigConstants.ULTRAVNC_REPEATER_SERVER_IP;
         } else {
 
@@ -329,7 +329,7 @@ public class VNCUtils {
         }
 
         String viewerParams = "";
-        if ("dev".equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
+        if (ConfigConstants.DEVELOP_MODE.equalsIgnoreCase(ConfigConstants.SYSTEM_DEVELOP_MODE)) {
             viewerParams = " -directx -fullscreen";
         } else {
 
