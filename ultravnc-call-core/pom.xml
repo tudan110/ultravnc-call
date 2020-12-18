@@ -13,6 +13,14 @@
 
     <dependencies>
 
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- hutool-setting -->
         <dependency>
             <groupId>cn.hutool</groupId>
