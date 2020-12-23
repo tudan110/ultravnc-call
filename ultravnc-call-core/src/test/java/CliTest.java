@@ -68,9 +68,11 @@ public class CliTest {
 
             // 校验是否含有 f 这个 option
             if (line.hasOption("f")) {
+
                 // 打印 file 参数值中的第三个参数
                 System.out.println(line.getOptionValues("f")[2]);
             }
+
         } catch (ParseException exp) {
             System.out.println("Unexpected exception:" + exp.getMessage());
         }
