@@ -62,6 +62,11 @@ public class Cli {
                 .build()
         );
 
+        String id = "";
+        String directory = "";
+        String ip = "";
+        String port = "";
+
         try {
 
             // 解析命令行参数
@@ -77,22 +82,22 @@ public class Cli {
 
             // 编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）
             if (line.hasOption("id")) {
-                System.out.println(line.getOptionValue("id"));
+                id = line.getOptionValue("id");
             }
 
             // vncviewer.exe 路径（可选参数）
             if (line.hasOption("dir")) {
-                System.out.println(line.getOptionValue("dir"));
+                directory = line.getOptionValue("dir");
             }
 
             // 中继器服务器 IP（可选参数）
             if (line.hasOption("ip")) {
-                System.out.println(line.getOptionValue("ip"));
+                ip = line.getOptionValue("ip");
             }
 
             // 中继器 UltraVNC Viewer 监听端口（可选参数）
             if (line.hasOption("p")) {
-                System.out.println(line.getOptionValue("p"));
+                port = line.getOptionValue("p");
             }
 
             return true;
@@ -100,7 +105,7 @@ public class Cli {
         } catch (ParseException e) {
             StaticLog.info("Unexpected exception:" + e.getMessage());
         }
-        System.out.println(false);
+
         return false;
 
     }

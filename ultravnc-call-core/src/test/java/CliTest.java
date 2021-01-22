@@ -14,10 +14,10 @@ public class CliTest {
 
         args = new String[]{
                 "-h",
-                //"-id", "90699",
-                //"-dir", "/dir/f",
-                //"-ip", "123123",
-                //"-port", "90612312399",
+                "-id", "90699",
+                "-dir", "/dir/f",
+                "-ip", "123123",
+                "-port", "90612312399",
         };
 
         System.out.println(Cli.startServer(args));
