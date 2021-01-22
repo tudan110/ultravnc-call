@@ -35,7 +35,6 @@ public class Cli {
         // 编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）
         options.addOption(Option.builder("id")
                 .longOpt("id")
-                .required()
                 .hasArg()
                 .desc("编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）")
                 .build()
@@ -76,11 +75,15 @@ public class Cli {
             CommandLine line = parser.parse(options, args);
 
             // 使用帮助
-            HelpFormatter hf = new HelpFormatter();
-            hf.setWidth(120);
             if (line.hasOption('h')) {
+
+                HelpFormatter hf = new HelpFormatter();
+                hf.setWidth(120);
                 // 打印使用帮助
                 hf.printHelp("ultravnc-call", options, true);
+
+                return false;
+
             }
 
             // 编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）

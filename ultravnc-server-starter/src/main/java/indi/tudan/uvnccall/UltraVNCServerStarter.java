@@ -1,9 +1,6 @@
 package indi.tudan.uvnccall;
 
-import cn.hutool.log.StaticLog;
 import indi.tudan.uvnccall.cli.Cli;
-import indi.tudan.uvnccall.common.ConfigConstants;
-import indi.tudan.uvnccall.utils.VNCUtils;
 
 /**
  * UltraVNCServer 启动器
@@ -19,7 +16,9 @@ public class UltraVNCServerStarter {
      */
     public static void main(String[] args) {
 
-        if (!Cli.startServer(args)) {
+        Cli.startServer(args);
+
+        /*if (!Cli.startServer(args)) {
 
             // 启动 UltraVNC Server
             switch (args.length) {
@@ -48,13 +47,13 @@ public class UltraVNCServerStarter {
                     break;
             }
 
-        /*VNCUtils.startUltraVNCServer(
+        *//*VNCUtils.startUltraVNCServer(
                 "C:\\Program Files\\uvnc bvba\\UltraVNC\\winvnc.exe",,
                 "90699"
                 "10.20.16.48",
-                "5500");*/
+                "5500");*//*
 
-        }
+        }*/
 
     }
 
