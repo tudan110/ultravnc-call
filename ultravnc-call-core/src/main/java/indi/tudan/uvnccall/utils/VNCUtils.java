@@ -34,7 +34,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCServerImageName() {
-        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME)
+        return StringUtils.isBlank(ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME)
                 ? ConfigConstants.DEFAULT_ULTRAVNC_SERVER_IMAGE_NAME : ConfigConstants.ULTRAVNC_SERVER_IMAGE_NAME;
     }
 
@@ -47,7 +47,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getUltraVNCViewerImageName() {
-        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME)
+        return StringUtils.isBlank(ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME)
                 ? ConfigConstants.DEFAULT_ULTRAVNC_VIEWER_IMAGE_NAME : ConfigConstants.ULTRAVNC_VIEWER_IMAGE_NAME;
     }
 
@@ -71,7 +71,7 @@ public class VNCUtils {
             String absolutePath = setting.getByGroup("ultravnc.uvncserver.path.absolute", "path");
 
             // 若绝对路径为空，则获取相对路径
-            if (StringUtils.isNotEmpty(absolutePath)) {
+            if (StringUtils.isNotBlank(absolutePath)) {
                 return absolutePath;
             } else {
                 return ClassUtils.getCurrentProgramPath()
@@ -100,7 +100,7 @@ public class VNCUtils {
             String absolutePath = setting.getByGroup("ultravnc.uvncviewer.path.absolute", "path");
 
             // 若绝对路径为空，则获取相对路径
-            if (StringUtils.isNotEmpty(absolutePath)) {
+            if (StringUtils.isNotBlank(absolutePath)) {
                 return absolutePath;
             } else {
                 return ClassUtils.getCurrentProgramPath()
@@ -150,7 +150,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterVNCServerListenPort() {
-        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT)
+        return StringUtils.isBlank(ConfigConstants.ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT)
                 ? "5500" : ConfigConstants.ULTRAVNC_REPEATER_VNCSERVER_LISTEN_PORT;
     }
 
@@ -163,7 +163,7 @@ public class VNCUtils {
      * @since 1.0
      */
     private static String getRepeaterVNCViewerListenPort() {
-        return StringUtils.isEmpty(ConfigConstants.ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT)
+        return StringUtils.isBlank(ConfigConstants.ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT)
                 ? "5901" : ConfigConstants.ULTRAVNC_REPEATER_VNCVIEWER_LISTEN_PORT;
     }
 
