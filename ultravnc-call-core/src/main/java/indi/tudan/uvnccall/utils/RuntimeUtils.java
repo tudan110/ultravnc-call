@@ -56,7 +56,7 @@ public class RuntimeUtils {
             exec(command);
 
         } catch (Exception e) {
-            if (StringUtils.isNotEmpty(errorInfo)) {
+            if (StringUtils.isNotBlank(errorInfo)) {
                 StaticLog.error(errorInfo);
             }
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class RuntimeUtils {
                 System.out.println(line);
             }
         } catch (Exception e) {
-            if (StringUtils.isNotEmpty(errorInfo)) {
+            if (StringUtils.isNotBlank(errorInfo)) {
                 StaticLog.error(errorInfo);
             }
             e.printStackTrace();

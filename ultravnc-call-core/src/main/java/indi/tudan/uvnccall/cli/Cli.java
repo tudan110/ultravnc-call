@@ -1,6 +1,9 @@
 package indi.tudan.uvnccall.cli;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import indi.tudan.uvnccall.common.ConfigConstants;
+import indi.tudan.uvnccall.utils.VNCUtils;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -98,6 +101,26 @@ public class Cli {
             // 中继器 UltraVNC Viewer 监听端口（可选参数）
             if (line.hasOption("p")) {
                 port = line.getOptionValue("p");
+            }
+
+            if (StrUtil.isBlank(id)) {
+                StaticLog.error(ConfigConstants.START_ULTRAVNC_SERVER_NO_PARAMETER_INFO);
+                return false;
+            }
+            if (StrUtil.isAllBlank(directory, ip, port)) {
+                VNCUtils.startUltraVNCServer(id);
+            } else if (StrUtil.isNotBlank(directory)
+                    && StrUtil.isAllBlank(ip, port)) {
+                VNCUtils.startUltraVNCServer(id, directory);
+            } else if (StrUtil.isNotBlank(directory)
+                    && StrUtil.isNotBlank(ip)
+                    && StrUtil.isBlank(port)) {
+                VNCUtils.startUltraVNCServer(id, directory, ip);
+            } else if (StrUtil.isAllNotBlank(id, directory, ip, port)) {
+                VNCUtils.startUltraVNCServer(id, directory, ip, port);
+            } else {
+                StaticLog.error(ConfigConstants.START_ULTRAVNC_SERVER_NO_PARAMETER_INFO);
+                return false;
             }
 
             return true;
