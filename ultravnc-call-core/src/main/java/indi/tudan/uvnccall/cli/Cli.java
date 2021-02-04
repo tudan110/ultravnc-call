@@ -40,11 +40,11 @@ public class Cli {
                 .build()
         );
 
-        // vncviewer.exe 路径（可选参数）
+        // winvnc.exe 路径（可选参数）
         options.addOption(Option.builder("dir")
                 .longOpt("directory")
                 .hasArg()
-                .desc("vncviewer.exe 路径（可选参数）")
+                .desc("winvnc.exe 路径（可选参数）")
                 .build()
         );
 
@@ -56,11 +56,11 @@ public class Cli {
                 .build()
         );
 
-        // 中继器 UltraVNC Viewer 监听端口（可选参数）
+        // 中继器 UltraVNC Server 监听端口（可选参数）
         options.addOption(Option.builder("p")
                 .longOpt("port")
                 .hasArg()
-                .desc("中继器 UltraVNC Viewer 监听端口（可选参数）")
+                .desc("中继器 UltraVNC Server 监听端口（可选参数）")
                 .build()
         );
 
