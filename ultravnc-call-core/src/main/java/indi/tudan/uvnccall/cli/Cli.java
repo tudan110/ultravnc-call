@@ -91,7 +91,7 @@ public class Cli {
                 id = line.getOptionValue("id");
             }
 
-            // vncviewer.exe 路径（可选参数）
+            // winvnc.exe 路径（可选参数）
             if (line.hasOption("dir")) {
                 directory = line.getOptionValue("dir");
             }
@@ -101,7 +101,7 @@ public class Cli {
                 ip = line.getOptionValue("ip");
             }
 
-            // 中继器 UltraVNC Viewer 监听端口（可选参数）
+            // 中继器 UltraVNC Server 监听端口（可选参数）
             if (line.hasOption("p")) {
                 port = line.getOptionValue("p");
             }
