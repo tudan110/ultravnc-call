@@ -285,18 +285,18 @@ public class Cli {
                 return false;
             }
             if (StrUtil.isAllBlank(directory, ip, port)) {
-                VNCUtils.startUltraVNCServer(id);
+                VNCUtils.startUltraVNCViewer(id);
             } else if (StrUtil.isNotBlank(directory)
                     && StrUtil.isAllBlank(ip, port)) {
-                VNCUtils.startUltraVNCServer(id, directory);
+                VNCUtils.startUltraVNCViewer(id, directory);
             } else if (StrUtil.isNotBlank(directory)
                     && StrUtil.isNotBlank(ip)
                     && StrUtil.isBlank(port)) {
-                VNCUtils.startUltraVNCServer(id, directory, ip);
+                VNCUtils.startUltraVNCViewer(id, directory, ip);
             } else if (StrUtil.isAllNotBlank(id, directory, ip, port)) {
-                VNCUtils.startUltraVNCServer(id, directory, ip, port);
+                VNCUtils.startUltraVNCViewer(id, directory, ip, port);
             } else {
-                StaticLog.error(ConfigConstants.START_ULTRAVNC_SERVER_NO_PARAMETER_INFO);
+                StaticLog.error(ConfigConstants.START_ULTRAVNC_VIEWER_NO_PARAMETER_INFO);
                 return false;
             }
 
