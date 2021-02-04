@@ -1,6 +1,6 @@
 package indi.tudan.uvnccall;
 
-import indi.tudan.uvnccall.utils.VNCUtils;
+import indi.tudan.uvnccall.cli.Cli;
 
 /**
  * UltraVNCServer 停止器
@@ -17,11 +17,7 @@ public class UltraVNCServerStoper {
     public static void main(String[] args) {
 
         // 停止 UltraVNC Server
-        if (args.length == 1) {
-            VNCUtils.stopUltraVNCServer(args[0]);
-        } else {
-            VNCUtils.stopUltraVNCServerByDefaultImageName();
-        }
+        Cli.stopServer(args);
     }
 
 }
