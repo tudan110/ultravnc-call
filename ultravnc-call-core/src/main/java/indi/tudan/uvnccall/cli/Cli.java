@@ -21,6 +21,15 @@ import org.apache.commons.cli.ParseException;
  */
 public class Cli {
 
+    /**
+     * 启动 vnc server
+     *
+     * @param args 命令行参数
+     * @return boolean
+     * @author wangtan
+     * @date 2021-02-07 16:38:20
+     * @since 1.0.0
+     */
     public static boolean startServer(String... args) {
 
         // 创建一个解析器
@@ -136,6 +145,15 @@ public class Cli {
 
     }
 
+    /**
+     * 停止 vnc server
+     *
+     * @param args 命令行参数
+     * @return boolean
+     * @author wangtan
+     * @date 2021-02-07 16:39:10
+     * @since 1.0.0
+     */
     public static boolean stopServer(String... args) {
 
         // 创建一个解析器
@@ -195,6 +213,15 @@ public class Cli {
 
     }
 
+    /**
+     * 启动 vnc viewer
+     *
+     * @param args 命令行参数
+     * @return boolean
+     * @author wangtan
+     * @date 2021-02-07 16:39:34
+     * @since 1.0.0
+     */
     public static boolean startViewer(String... args) {
 
         // 创建一个解析器
