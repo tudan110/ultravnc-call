@@ -1,5 +1,7 @@
 # ultravnc-call
 
+[README](README.md) | [中文文档](README_zh.md)
+
 &ensp;&ensp;&ensp;&ensp;UltraVNC calls programs, only for windows (because UltraVNC only has windows version). Build a relay server based on UltraVNC Repeater, and use this program to assist in calling UltraVNC Server and Viewer to realize the remote desktop function in a complex network environment.
 
 &ensp;&ensp;&ensp;&ensp;2.0 version modified the command line parameters, you can use -h or -help to view the help.
