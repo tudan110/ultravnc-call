@@ -1,4 +1,7 @@
 # ultravnc-call
+
+[README](README.md) | [中文文档](README_zh.md)
+
 &ensp;&ensp;&ensp;&ensp;UltraVNC 调用程序，仅适用于 windows（因为 UltraVNC 只有 windows 版本）。基于 UltraVNC Repeater 搭建中继服务器，使用本程序辅助调用 UltraVNC Server 和 Viewer ，实现复杂网络环境里的远程桌面功能。
 
 &ensp;&ensp;&ensp;&ensp;2.0 版本对命令行参数做了修改，可以通过 -h 或 -help 来查看帮助。
