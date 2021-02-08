@@ -112,6 +112,13 @@ java -jar ultravnc-viewer-starter-1.0.jar -id 90699 [-dir "C:/Program Files/uvnc
 java -jar ultravnc-ini-modifier-1.0.jar 90699 ["C:/Users/tudan/Desktop/ultravnc.ini"]
 ```
 
+2.0 版本对命令行参数做了修改
+
+```shell
+# 中括号[]代表可选参数，若不填，则用配置文件中对应的默认值
+java -jar ultravnc-ini-modifier-1.0.jar -id 90699 [-dir "C:/Users/tudan/Desktop/ultravnc.ini"]
+```
+
 ### 2.7 ultravnc-session-manager （会话管理程序）
 
 1. 获取会话 id

@@ -7,7 +7,7 @@
     <groupId>indi.tudan</groupId>
     <artifactId>ultravnc-call</artifactId>
     <packaging>pom</packaging>
-    <version>2.0</version>
+    <version>2.5</version>
     <name>ultravnc-call</name>
     <description>UltraVNC 调用程序</description>
 

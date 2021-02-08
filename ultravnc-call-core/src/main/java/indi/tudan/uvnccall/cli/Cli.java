@@ -337,4 +337,93 @@ public class Cli {
 
     }
 
+    /**
+     * 修改 vnc ultravnc.ini 属性文件
+     *
+     * @param args 命令行参数
+     * @return boolean
+     * @author wangtan
+     * @date 2021-02-08 10:27:12
+     * @since 1.0.0
+     */
+    public static boolean modifierIni(String... args) {
+
+        // 创建一个解析器
+        CommandLineParser parser = new DefaultParser();
+
+        // 创建一个 Options，用来包装 option
+        Options options = new Options();
+
+        // help
+        options.addOption("h", "help", false, "Print help");
+
+        // 编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）
+        options.addOption(Option.builder("id")
+                .longOpt("id")
+                .hasArg()
+                .desc("编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）")
+                .build()
+        );
+
+        // vncviewer.exe 路径（可选参数）
+        options.addOption(Option.builder("dir")
+                .longOpt("directory")
+                .hasArg()
+                .desc("ultravnc.ini 配置文件路径（可选参数）")
+                .build()
+        );
+
+        String id = "";
+        String directory = "";
+
+        try {
+
+            // 解析命令行参数
+            CommandLine line = parser.parse(options, args);
+
+            // 使用帮助
+            if (line.hasOption('h')) {
+
+                HelpFormatter hf = new HelpFormatter();
+                hf.setWidth(120);
+                // 打印使用帮助
+                hf.printHelp("ultravnc-call", options, true);
+
+                return false;
+
+            }
+
+            // 编号，唯一，必须是数字，且至少三位（即最小是 100，最大是 2147483647）
+            if (line.hasOption("id")) {
+                id = line.getOptionValue("id");
+            }
+
+            // ultravnc.ini 配置文件路径（可选参数）
+            if (line.hasOption("dir")) {
+                directory = line.getOptionValue("dir");
+            }
+
+            if (StrUtil.isBlank(id)) {
+                StaticLog.error(ConfigConstants.MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO);
+                return false;
+            }
+            if (StrUtil.isBlank(directory)) {
+                VNCUtils.modifyUltraVNCIni(id);
+            } else if (StrUtil.isNotBlank(directory)) {
+                VNCUtils.startUltraVNCViewer(id, directory);
+            } else {
+                StaticLog.error(ConfigConstants.START_ULTRAVNC_INI_MODIFIER_ERROR_INFO);
+                return false;
+            }
+
+            return true;
+
+        } catch (ParseException e) {
+            StaticLog.info("Unexpected exception:" + e.getMessage());
+        }
+
+        return false;
+
+    }
+
 }

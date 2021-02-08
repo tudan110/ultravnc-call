@@ -85,6 +85,11 @@ public class ConfigConstants {
     public static final String MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO = SystemConfig.getProperty("ultravnc.modify.uvncini.no.parameter.info");
 
     /**
+     * UltraVNC INI Modifier 启动失败提示信息
+     */
+    public static final String START_ULTRAVNC_INI_MODIFIER_ERROR_INFO = SystemConfig.getProperty("ultravnc.start.modify.uvncini.error.info");
+
+    /**
      * UltraVNC Server 启动失败提示信息
      */
     public static final String START_ULTRAVNC_SERVER_ERROR_INFO = SystemConfig.getProperty("ultravnc.start.uvncserver.error.info");
