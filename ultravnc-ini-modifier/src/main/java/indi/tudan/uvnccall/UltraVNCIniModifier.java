@@ -1,8 +1,6 @@
 package indi.tudan.uvnccall;
 
-import cn.hutool.log.StaticLog;
-import indi.tudan.uvnccall.common.ConfigConstants;
-import indi.tudan.uvnccall.utils.VNCUtils;
+import indi.tudan.uvnccall.cli.Cli;
 
 /**
  * 修改 UltraVNC 配置文件 ultravnc.ini
@@ -19,18 +17,7 @@ public class UltraVNCIniModifier {
     public static void main(String[] args) {
 
         // 修改 ultravnc.ini 文件
-        if (args.length == 1) {
+        Cli.modifierIni(args);
 
-            // 90699
-            VNCUtils.modifyUltraVNCIni(args[0]);
-        } else if (args.length == 2) {
-
-            // 90699 "C:/Users/tudan/Desktop/ultravnc.ini"
-            VNCUtils.modifyUltraVNCIni(args[0], args[1]);
-        } else {
-            StaticLog.error(ConfigConstants.MODIFY_ULTRAVNC_INI_NO_PARAMETER_INFO);
-        }
-
-//        VNCUtils.modifyUltraVNCIni("C:\\Users\\tudan\\Desktop\\ultravnc.ini", "90699");
     }
 }

@@ -115,6 +115,13 @@ Explanation of parameters:
 java -jar ultravnc-ini-modifier-1.0.jar 90699 ["C:/Users/tudan/Desktop/ultravnc.ini"]
 ```
 
+Version 2.0 modified the command line parameters
+
+```shell
+# Brackets [] represent optional parameters, if not filled, the corresponding default value in the configuration file will be used
+java -jar ultravnc-ini-modifier-1.0.jar -id 90699 [-dir "C:/Users/tudan/Desktop/ultravnc.ini"]
+```
+
 ### 2.7 ultravnc-session-manager (session management program)
 
 1. Get the session id
