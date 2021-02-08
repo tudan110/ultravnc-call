@@ -4,6 +4,6 @@ export default {
      */
     baseUrl: {
         dev: 'http://localhost:9081/usm/api/',
-        pro: 'http://10.20.22.7:9081/usm/api/'
+        pro: 'http://10.20.16.48:9081/usm/api/'
     }
 };

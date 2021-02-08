@@ -2,3 +2,9 @@ server:
   servlet:
     context-path: /usm
   port: 9081
+
+# 中继器配置
+repeater:
+  host: 10.20.16.48
+  serverPort: 5500
+  viewerPort: 5901
