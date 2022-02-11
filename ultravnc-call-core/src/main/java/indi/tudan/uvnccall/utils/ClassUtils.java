@@ -1,5 +1,7 @@
 package indi.tudan.uvnccall.utils;
 
+import cn.hutool.log.StaticLog;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
@@ -34,7 +36,7 @@ public class ClassUtils {
         try {
             jarFile = new File(codeSource.getLocation().toURI().getPath());
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
 
         return Objects.requireNonNull(jarFile, "jar file should not be null.").getParentFile().getPath();

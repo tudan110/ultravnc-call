@@ -1,5 +1,7 @@
 package indi.tudan.uvnccall.common;
 
+import cn.hutool.log.StaticLog;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -19,13 +21,15 @@ public class SystemConfig {
     private static Properties systemConfig = new Properties();
 
     static {
+
         try (InputStream inputStream = SystemConfig.class.getResourceAsStream(ConfigConstants.CONFIG_PATH)) {
 
             //读取配置文件
             systemConfig.load(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
+
     }
 
     /**

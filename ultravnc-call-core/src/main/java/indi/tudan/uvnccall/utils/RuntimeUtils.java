@@ -59,7 +59,7 @@ public class RuntimeUtils {
             if (StringUtils.isNotBlank(errorInfo)) {
                 StaticLog.error(errorInfo);
             }
-            e.printStackTrace();
+            StaticLog.error(e);
         }
     }
 
@@ -94,13 +94,13 @@ public class RuntimeUtils {
             if (StringUtils.isNotBlank(errorInfo)) {
                 StaticLog.error(errorInfo);
             }
-            e.printStackTrace();
+            StaticLog.error(e);
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    StaticLog.error(e);
                 }
             }
         }
@@ -144,14 +144,14 @@ public class RuntimeUtils {
 
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            StaticLog.error(e);
             return false;
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    StaticLog.error(e);
                 }
             }
         }
@@ -180,13 +180,13 @@ public class RuntimeUtils {
                 processInfoList.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    StaticLog.error(e);
                 }
             }
         }

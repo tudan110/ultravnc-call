@@ -393,7 +393,7 @@ public class VNCUtils {
                 buf.append(System.getProperty("line.separator"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return buf.toString();
     }
@@ -425,7 +425,7 @@ public class VNCUtils {
             if (getUltraVNCIniPath().contains("C:/Program Files")) {
                 throw new NoRightAccessException("没有权限访问配置文件，请以管理员权限运行程序。");
             } else {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
         }
     }
